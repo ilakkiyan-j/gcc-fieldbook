@@ -480,6 +480,43 @@ Next action:
 - Report completion of Checkpoint 3C to user.
 - Present Page Checkpoint 3D (GCC Profile & Evidence Drawer) proposal with generated mockup image and wait for user approval before coding.
 
+[2026-10-13 04:18 IST] — CHECKPOINT 3D COMPLETE: GCC Profile & Evidence Drawer (/gccs/[id]) Implemented & Acceptance Gate 3 PASSED
+Goal:
+Implement Page Checkpoint 3D: GCC Profile & Evidence Drawer (`/gccs/[id]`) featuring distinct Parent Legal Entity vs. Centre Facility (ADR-003), key parameter tiles (headcount range, campus footprint, capability taxonomy), claim-level Evidence Ledger with published dates vs. last-checked dates (ADR-004), conflicting claim alert banners, Next.js 15 async route handling, and dedicated `not-found.tsx`.
+Completed:
+- Implemented `src/components/profile/ProfileHero.tsx` displaying facility name, parent entity, headquarters country, location badge, sector, setup year, official external portal link, and strategic scope note.
+- Implemented `src/components/profile/ProfileKeyMetrics.tsx` rendering monospace headcount range, facility footprint / campus scale, and functional capability tags.
+- Implemented `src/components/profile/EvidenceLedger.tsx` rendering claim-level audit trail with StatusBadge, source publisher, direct URL link, published vs. audited dates, verification note, and conflict alert explanation.
+- Implemented `src/app/gccs/[id]/not-found.tsx` providing clean 404 state with return link to Explorer.
+- Updated `src/app/gccs/[id]/page.tsx` as a Server Component supporting Next.js 15 `params: Promise<{ id: string }>`, fetching via `repository.getGccByIdOrSlug(id)` and rendering complete profile modules.
+- Added test suite `tests/ui/profile.test.ts` verifying slug resolution, company/city joins, claim extraction (verified, estimated, conflicting), and 404 null return.
+Files changed:
+- `src/components/profile/ProfileHero.tsx` (created)
+- `src/components/profile/ProfileKeyMetrics.tsx` (created)
+- `src/components/profile/EvidenceLedger.tsx` (created)
+- `src/app/gccs/[id]/not-found.tsx` (created)
+- `src/app/gccs/[id]/page.tsx` (updated)
+- `tests/ui/profile.test.ts` (created)
+- `.ai/IMPLEMENTATION_PLAN.md` (checked Checkpoint 3D and Acceptance Gate 3)
+- `.ai/log.txt` (appended this entry)
+Validation performed:
+- `npm run type-check`: PASSED with 0 errors.
+- `npm run test`: PASSED (20/20 tests across 5 test suites).
+- `npm run build`: PASSED (Next.js 15.5.27 production build compiled with all static and dynamic pages).
+Decisions:
+- Enforced ADR-004: Distinct timestamps for published date vs. last-checked date in Evidence Ledger.
+- Verified Acceptance Gate 3 requirements: Design direction approved, Shell (3A), Dashboard (3B), Explorer (3C), and Profile (3D) fully implemented and verified.
+Credentials status:
+- No new credentials required.
+Blockers/risks:
+- None.
+Gate: PASS (Acceptance Gate 3 passed)
+Next action:
+- Commit Checkpoint 3D to Git.
+- Report completion of Checkpoint 3D and Phase 3 to user.
+- Present Phase 4 (Location Intelligence & Comparison Matrix) proposal with generated mockup image and wait for user approval before coding.
+
+
 
 
 

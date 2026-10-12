@@ -377,27 +377,27 @@ Obtain user approval for the shared visual direction, then deliver the dashboard
 
 ### Page checkpoint 3D — GCC/company profile and evidence panel
 
-- [ ] Present the profile information hierarchy, company-vs-centre distinction, claim status treatment, evidence panel/drawer, dates, and safe external link behavior.
-- [ ] Wait for page-specific approval before implementation.
-- [ ] Implement `/gccs/[id]` with available company/centre details and distinctions between unknown, estimated, self-reported, verified, and conflicting information.
-- [ ] Show source title, publisher, URL, source type, publication date when known, and last-checked date.
-- [ ] Test stable profile routing, source links, unknown fields, conflicting claims, and not-found IDs.
-- [ ] Present the real page, apply feedback, run checks, update this plan and `log.txt`, and stop for approval before Phase 4.
+- [x] Present the profile information hierarchy, company-vs-centre distinction, claim status treatment, evidence panel/drawer, dates, and safe external link behavior.
+- [x] Wait for page-specific approval before implementation.
+- [x] Implement `/gccs/[id]` with available company/centre details and distinctions between unknown, estimated, self-reported, verified, and conflicting information.
+- [x] Show source title, publisher, URL, source type, publication date when known, and last-checked date.
+- [x] Test stable profile routing, source links, unknown fields, conflicting claims, and not-found IDs.
+- [x] Present the real page, apply feedback, run checks, update this plan and `log.txt`, and stop for approval before Phase 4.
 
 ### Acceptance gate 3
 
-- [ ] Global design direction was explicitly approved before final styling.
-- [ ] Shell, dashboard, Explorer, and profile each passed their own page checkpoint.
-- [ ] Search for a known seeded company returns the correct result.
-- [ ] City and sector/function filters work against actual dataset fields; filters can be cleared.
-- [ ] Result count matches filtered results.
-- [ ] Clicking a result opens the correct stable profile route.
-- [ ] A reviewer can inspect source details from the profile.
-- [ ] Unknown fields are clearly labeled; empty or failed requests do not show fake success.
-- [ ] Dashboard cards use live query results or are omitted if the data does not support them.
-- [ ] Test outcomes, viewport checks, screenshot paths when available, feedback applied, and unresolved visual issues are recorded in the log.
+- [x] Global design direction was explicitly approved before final styling.
+- [x] Shell, dashboard, Explorer, and profile each passed their own page checkpoint.
+- [x] Search for a known seeded company returns the correct result.
+- [x] City and sector/function filters work against actual dataset fields; filters can be cleared.
+- [x] Result count matches filtered results.
+- [x] Clicking a result opens the correct stable profile route.
+- [x] A reviewer can inspect source details from the profile.
+- [x] Unknown fields are clearly labeled; empty or failed requests do not show fake success.
+- [x] Dashboard cards use live query results or are omitted if the data does not support them.
+- [x] Test outcomes, viewport checks, screenshot paths when available, feedback applied, and unresolved visual issues are recorded in the log.
 
-**Gate evidence:** record IDs, test results, desktop/mobile viewport checks, screenshot paths where supported, and per-page approval status in `log.txt`.
+**Gate evidence:** record IDs, test results, desktop/mobile viewport checks, screenshot paths where supported, and per-page approval status in `log.txt`. (Status: PASS).
 
 ---
 
