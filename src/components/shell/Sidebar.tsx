@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Compass,
   Building2,
@@ -14,6 +14,7 @@ import {
   Database,
   ExternalLink,
   X,
+  Search,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -64,6 +65,7 @@ export function Sidebar({
   onCloseMobile,
 }: SidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
 
   const isItemActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -75,35 +77,35 @@ export function Sidebar({
       {/* Brand Header */}
       <div
         className={cn(
-          "flex items-center justify-between h-18 px-4 border-b border-border-neutral transition-all",
-          isCollapsed ? "justify-center px-2" : "px-5"
+          "flex items-center justify-center h-20 px-4 border-b border-border-neutral transition-all relative",
+          isCollapsed ? "px-2" : "px-4"
         )}
       >
         <Link
           href="/"
           onClick={onCloseMobile}
-          className="flex items-center transition-opacity hover:opacity-90"
+          className="flex items-center justify-center w-full transition-opacity hover:opacity-90"
         >
           {isCollapsed ? (
-            <div className="w-9 h-9 relative flex items-center justify-center">
+            <div className="w-10 h-10 relative flex items-center justify-center">
               <Image
                 src="/images/logo.png"
                 alt="GCC Fieldbook"
-                width={36}
-                height={36}
+                width={40}
+                height={40}
                 priority
                 className="rounded-lg shadow-2xs object-contain"
               />
             </div>
           ) : (
-            <div className="h-10 relative flex items-center">
+            <div className="h-12 relative flex items-center justify-center">
               <Image
                 src="/images/horizontal_logo.png"
                 alt="GCC Fieldbook — Evidence. Context. Better decisions."
-                width={170}
-                height={40}
+                width={195}
+                height={48}
                 priority
-                className="h-9 w-auto object-contain"
+                className="h-11 w-auto max-w-[200px] object-contain"
               />
             </div>
           )}
@@ -112,11 +114,43 @@ export function Sidebar({
         {/* Mobile close button */}
         <button
           onClick={onCloseMobile}
-          className="lg:hidden p-1.5 rounded-md text-ink-muted hover:text-ink hover:bg-surface-subtle"
+          className="lg:hidden absolute right-3 p-1.5 rounded-md text-ink-muted hover:text-ink hover:bg-surface-subtle"
           aria-label="Close navigation"
         >
           <X className="w-5 h-5" />
         </button>
+      </div>
+
+      {/* Integrated Quick Search Bar */}
+      <div className="px-3 pt-3 pb-1">
+        {!isCollapsed ? (
+          <button
+            onClick={() => {
+              router.push("/gccs");
+              onCloseMobile();
+            }}
+            className="w-full flex items-center justify-between px-3 py-2 rounded-lg border border-border-neutral bg-surface-subtle/80 text-xs text-ink-muted hover:text-ink hover:border-border-strong hover:bg-white transition-all shadow-2xs group"
+            title="Quick search GCCs (⌘K or Ctrl+K)"
+            aria-label="Quick search GCCs"
+          >
+            <div className="flex items-center gap-2.5 min-w-0">
+              <Search className="w-4 h-4 text-ink-muted group-hover:text-brand flex-shrink-0 transition-colors" />
+              <span className="truncate">Quick search...</span>
+            </div>
+            <kbd className="inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono font-medium text-ink-muted bg-white border border-border-neutral rounded shadow-2xs flex-shrink-0">
+              ⌘K
+            </kbd>
+          </button>
+        ) : (
+          <button
+            onClick={() => router.push("/gccs")}
+            className="w-full flex items-center justify-center p-2 rounded-lg text-ink-muted hover:text-ink hover:bg-surface-subtle transition-colors"
+            title="Quick search GCCs (⌘K)"
+            aria-label="Quick search GCCs"
+          >
+            <Search className="w-5 h-5" />
+          </button>
+        )}
       </div>
 
       {/* Navigation List */}
@@ -222,7 +256,7 @@ export function Sidebar({
       {/* Desktop Persistent Sidebar */}
       <aside
         className={cn(
-          "hidden lg:block fixed inset-y-0 left-0 z-30 transition-all duration-200 ease-in-out",
+          "hidden lg:flex flex-col flex-shrink-0 sticky top-0 h-screen z-30 transition-[width] duration-300 ease-in-out",
           isCollapsed ? "w-16" : "w-64"
         )}
       >

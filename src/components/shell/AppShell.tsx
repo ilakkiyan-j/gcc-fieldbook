@@ -1,9 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { Menu, Search } from "lucide-react";
 import { Sidebar } from "@/components/shell/Sidebar";
-import { Header } from "@/components/shell/Header";
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -61,9 +63,35 @@ export function AppShell({ children }: AppShellProps) {
       />
 
       {/* Main Layout Area */}
-      <div className="flex-1 flex flex-col min-w-0 transition-[margin] duration-300 ease-in-out">
-        {/* Sticky Top Context Header */}
-        <Header onOpenMobile={() => setIsMobileOpen(true)} />
+      <div className="flex-1 flex flex-col min-w-0">
+        {/* Mobile-Only Header (< lg) */}
+        <div className="lg:hidden sticky top-0 z-20 h-14 bg-white/95 backdrop-blur-xs border-b border-border-neutral px-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setIsMobileOpen(true)}
+              className="p-2 rounded-lg text-ink-secondary hover:text-ink hover:bg-surface-subtle"
+              aria-label="Open navigation menu"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/images/horizontal_logo.png"
+                alt="GCC Fieldbook"
+                width={140}
+                height={32}
+                className="h-7 w-auto object-contain"
+              />
+            </Link>
+          </div>
+          <button
+            onClick={() => router.push("/gccs")}
+            className="p-2 rounded-lg text-ink-muted hover:text-ink hover:bg-surface-subtle"
+            aria-label="Quick search"
+          >
+            <Search className="w-5 h-5" />
+          </button>
+        </div>
 
         {/* Dynamic Page Content */}
         <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
