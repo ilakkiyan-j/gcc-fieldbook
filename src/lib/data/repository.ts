@@ -290,6 +290,40 @@ export class DataRepository {
   async getSources(): Promise<Source[]> {
     return SEED_SOURCES;
   }
+
+  /**
+   * Get evidence claims distribution stats for trust and confidence visualization
+   */
+  async getEvidenceStats(): Promise<{
+    total: number;
+    verified: number;
+    estimated: number;
+    conflicting: number;
+    unknown: number;
+    verifiedPercent: number;
+    estimatedPercent: number;
+    conflictingPercent: number;
+    unknownPercent: number;
+  }> {
+    const claims = SEED_EVIDENCE_CLAIMS;
+    const total = claims.length;
+    const verified = claims.filter((c) => c.evidence_status === "verified").length;
+    const estimated = claims.filter((c) => c.evidence_status === "estimated").length;
+    const conflicting = claims.filter((c) => c.evidence_status === "conflicting").length;
+    const unknown = claims.filter((c) => c.evidence_status === "unknown").length;
+
+    return {
+      total,
+      verified,
+      estimated,
+      conflicting,
+      unknown,
+      verifiedPercent: total > 0 ? Math.round((verified / total) * 100) : 0,
+      estimatedPercent: total > 0 ? Math.round((estimated / total) * 100) : 0,
+      conflictingPercent: total > 0 ? Math.round((conflicting / total) * 100) : 0,
+      unknownPercent: total > 0 ? Math.round((unknown / total) * 100) : 0,
+    };
+  }
 }
 
 export const repository = new DataRepository();

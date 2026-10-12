@@ -403,6 +403,46 @@ Next action:
 - Report completion of Checkpoint 3A to user.
 - Present Page Checkpoint 3B (Overview Dashboard) plan with generated mockup image and wait for user approval before coding.
 
+[2026-10-13 04:06 IST] — CHECKPOINT 3B COMPLETE: Overview Dashboard (/) Implemented & Verified
+Goal:
+Implement Page Checkpoint 3B: Overview Dashboard (`/`) featuring real data-driven metric cards (`gccCentreCount`, `cityCount`, `claimCount`, primary verification rate), evidence confidence distribution bar, honest sample disclosure banner (ADR-005), 4 featured GCC cards linking to detail profiles, cross-module navigation launchpads, and evidence governance principles.
+Completed:
+- Enhanced `DataRepository` in `src/lib/data/repository.ts` with `getEvidenceStats()` calculating exact claim status distribution (verified, estimated, conflicting, unknown).
+- Implemented `src/components/dashboard/CoverageBanner.tsx` displaying transparent sample coverage disclosure (4 GCCs, 2 Cities) with direct link to Explorer.
+- Implemented `src/components/dashboard/OverviewMetrics.tsx` with 4 KPI cards, tabular monospace numerals, and contextual badges.
+- Implemented `src/components/dashboard/ConfidenceBar.tsx` with segmented distribution bar and legend detailing verification criteria.
+- Implemented `src/components/dashboard/FeaturedGccGrid.tsx` with responsive grid of featured centres (Goldman Sachs, JPMorgan Chase, Boeing, Target) displaying status badges, city tags, headcounts, capability pills, and evidence links.
+- Implemented `src/components/dashboard/QuickActionLaunchpads.tsx` linking to `/locations` (comparison matrix) and `/research` (AI Copilot).
+- Replaced temporary placeholder in `src/app/page.tsx` with full Server Component wiring together all Dashboard modules with data fetched from `repository`.
+- Added unit tests in `tests/ui/dashboard.test.ts` validating calculation accuracy and component data contracts.
+Files changed:
+- `src/lib/data/repository.ts` (updated)
+- `src/components/dashboard/CoverageBanner.tsx` (created)
+- `src/components/dashboard/OverviewMetrics.tsx` (created)
+- `src/components/dashboard/ConfidenceBar.tsx` (created)
+- `src/components/dashboard/FeaturedGccGrid.tsx` (created)
+- `src/components/dashboard/QuickActionLaunchpads.tsx` (created)
+- `src/app/page.tsx` (updated)
+- `tests/ui/dashboard.test.ts` (created)
+- `.ai/IMPLEMENTATION_PLAN.md` (checked Checkpoint 3B)
+- `.ai/log.txt` (appended this entry)
+Validation performed:
+- `npm run type-check`: PASSED with 0 errors.
+- `npm run test`: PASSED (11/11 tests across 3 test suites).
+- `npm run build`: PASSED (Next.js 15.5.27 production build compiled with all static and dynamic pages).
+Decisions:
+- Verified that all dashboard metrics derive dynamically from the repository/seed data layer with zero hardcoded numbers.
+Credentials status:
+- No new credentials required.
+Blockers/risks:
+- None.
+Gate: PASS (Page Checkpoint 3B passed)
+Next action:
+- Commit Checkpoint 3B to Git.
+- Report completion of Checkpoint 3B to user.
+- Present Page Checkpoint 3C (GCC Explorer) proposal with generated mockup image and wait for user approval before coding.
+
+
 
 
 

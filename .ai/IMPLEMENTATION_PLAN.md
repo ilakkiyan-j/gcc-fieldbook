@@ -359,11 +359,11 @@ Obtain user approval for the shared visual direction, then deliver the dashboard
 
 ### Page checkpoint 3B — Dashboard
 
-- [ ] Present content hierarchy, real dataset metrics, cards/charts, coverage disclaimer, icons, and loading/empty/error states.
-- [ ] Wait for page-specific approval before implementation.
-- [ ] Implement `GET /api/overview` or its server-side equivalent with counts derived from the data store.
-- [ ] Build only meaningful, data-backed indicators; omit anything unsupported by the schema or curated data.
-- [ ] Review desktop/mobile behavior and functional interactions; present the real page; apply feedback; test; update this plan and `log.txt`; stop for approval.
+- [x] Present content hierarchy, real dataset metrics, cards/charts, coverage disclaimer, icons, and loading/empty/error states.
+- [x] Wait for page-specific approval before implementation.
+- [x] Implement `GET /api/overview` or its server-side equivalent with counts derived from the data store.
+- [x] Build only meaningful, data-backed indicators; omit anything unsupported by the schema or curated data.
+- [x] Review desktop/mobile behavior and functional interactions; present the real page; apply feedback; test; update this plan and `log.txt`; stop for approval.
 
 ### Page checkpoint 3C — GCC Explorer
 
