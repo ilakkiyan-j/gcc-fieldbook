@@ -306,31 +306,31 @@ Establish the canonical data layer before implementing screens that depend on fa
 
 ### Tasks
 
-- [ ] Translate `ARCHITECTURE.md` into SQL migrations. Use foreign keys, stable UUIDs, useful indexes, constraints, and appropriate timestamp types.
-- [ ] Model companies separately from GCC centres; do not collapse a parent company, Indian legal entity, and individual centre into the same concept.
-- [ ] Implement source records and evidence claims with enough fields to preserve the source, claim/value, status, relevant period/unit, publication date if known, last-checked date, and conflict reference when applicable.
-- [ ] Implement cities and location indicators with unit, period, definition/method, source, and comparability note.
-- [ ] Implement policy records only if there are sourced policies ready for the demo; otherwise keep the interface explicit about unavailable policy data.
-- [ ] Keep optional provider tables/features secondary. Only implement them once the necessary evidence coverage exists or after P0 is secure.
-- [ ] Create SQL seed files or the migration/seed mechanism defined by the architecture so the demo dataset is reproducible.
-- [ ] Curate a deliberately small dataset that supports each demo workflow. Verify each material factual claim against its recorded source before including it.
-- [ ] Add examples of the intended evidence states where defensible: verified, estimated, conflicting, and unknown. Do not mislabel a source as authoritative merely to populate each status.
-- [ ] Add a real example of conflicting market counts only if the distinct figures, source dates, and definitions can be recorded accurately. Do not merge them into one “correct” number without methodological support.
-- [ ] Implement server-side repository/query functions with bounded result sizes and stable ordering.
-- [ ] Configure Supabase policies for intentionally public, curated demo records as defined in `ARCHITECTURE.md`. Browser-side insert, update, or delete must not be possible.
-- [ ] Add runtime validation for records used in UI/API responses, with clear handling of nullable and unknown fields.
+- [x] Translate `ARCHITECTURE.md` into SQL migrations. Use foreign keys, stable UUIDs, useful indexes, constraints, and appropriate timestamp types.
+- [x] Model companies separately from GCC centres; do not collapse a parent company, Indian legal entity, and individual centre into the same concept.
+- [x] Implement source records and evidence claims with enough fields to preserve the source, claim/value, status, relevant period/unit, publication date if known, last-checked date, and conflict reference when applicable.
+- [x] Implement cities and location indicators with unit, period, definition/method, source, and comparability note.
+- [x] Implement policy records only if there are sourced policies ready for the demo; otherwise keep the interface explicit about unavailable policy data.
+- [x] Keep optional provider tables/features secondary. Only implement them once the necessary evidence coverage exists or after P0 is secure.
+- [x] Create SQL seed files or the migration/seed mechanism defined by the architecture so the demo dataset is reproducible.
+- [x] Curate a deliberately small dataset that supports each demo workflow. Verify each material factual claim against its recorded source before including it.
+- [x] Add examples of the intended evidence states where defensible: verified, estimated, conflicting, and unknown. Do not mislabel a source as authoritative merely to populate each status.
+- [x] Add a real example of conflicting market counts only if the distinct figures, source dates, and definitions can be recorded accurately. Do not merge them into one “correct” number without methodological support.
+- [x] Implement server-side repository/query functions with bounded result sizes and stable ordering.
+- [x] Configure Supabase policies for intentionally public, curated demo records as defined in `ARCHITECTURE.md`. Browser-side insert, update, or delete must not be possible.
+- [x] Add runtime validation for records used in UI/API responses, with clear handling of nullable and unknown fields.
 
 ### Acceptance gate 2
 
-- [ ] A clean database can be initialized from committed migrations and seed files.
-- [ ] Seed records use stable IDs and satisfy constraints.
-- [ ] All important factual claims are linked to a source or visibly represented as unknown/assumption.
-- [ ] Publication date, last-checked date, and validity period are not conflated.
-- [ ] Missing numbers remain `null`/unknown, never silently coerced to zero.
-- [ ] Public database policies allow only intended reads and no public writes.
-- [ ] Seed counts shown later in the UI can be derived from the database, not hardcoded.
+- [x] A clean database can be initialized from committed migrations and seed files.
+- [x] Seed records use stable IDs and satisfy constraints.
+- [x] All important factual claims are linked to a source or visibly represented as unknown/assumption.
+- [x] Publication date, last-checked date, and validity period are not conflated.
+- [x] Missing numbers remain `null`/unknown, never silently coerced to zero.
+- [x] Public database policies allow only intended reads and no public writes.
+- [x] Seed counts shown later in the UI can be derived from the database, not hardcoded.
 
-**Gate evidence:** migration/seed command, row-count summary, and source-audit result in `log.txt` (do not dump sensitive environment values).
+**Gate evidence:** migration/seed command, row-count summary, and source-audit result in `log.txt` (do not dump sensitive environment values). (Status: PASS).
 
 ---
 

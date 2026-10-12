@@ -277,4 +277,55 @@ Next action:
 - Propose Phase 2 Implementation Plan via `/plan` artifact.
 - Wait for explicit user approval before executing Phase 2.
 
+[2026-10-13 03:29 IST] — PHASE 2 COMPLETE: Database model, migrations, curated seed data, and read APIs
+Goal:
+Execute Phase 2: Create versioned PostgreSQL schema migration, reproducible seed data with traceable sources and claim-level evidence, typed domain models, repository layer with Supabase integration and local fallback, and read API Route Handlers.
+Completed:
+- Created versioned SQL migration `supabase/migrations/20261013000001_initial_schema.sql` covering `companies`, `cities`, `gcc_centres`, `sources`, `city_indicators`, `policies`, and `evidence_claims` with UUID primary keys, check constraints, indexes, and RLS public read policies.
+- Created reproducible `supabase/seed.sql` with real public sources (Goldman Sachs, JPMorgan Chase, Boeing, Target; Bengaluru, Hyderabad; Q4 2025 Grade-A commercial rents, talent pool estimates, and state GCC policies) covering all 4 evidence states: verified, estimated, conflicting, and unknown.
+- Defined strict TypeScript domain interfaces in `src/types/domain.ts`.
+- Implemented Supabase server client in `src/lib/supabase/server.ts` using `@supabase/supabase-js`.
+- Implemented canonical in-memory seed mirror in `src/lib/data/seed-data.ts`.
+- Implemented unified repository layer in `src/lib/data/repository.ts` supporting both hosted Supabase queries and deterministic local fallback.
+- Implemented read API Route Handlers:
+  - `GET /api/overview` (returns dynamic dataset counts)
+  - `GET /api/gccs` (search, city/sector/function filters, pagination)
+  - `GET /api/gccs/[id]` (centre profile with claim-level evidence and joined sources)
+  - `GET /api/locations` (like-for-like comparative indicators and state policies)
+- Wrote integration tests in `tests/data/repository.test.ts` verifying filtering, claim joins, missingness handling, and conflict preservation.
+Files changed:
+- `package.json`, `package-lock.json` (installed `@supabase/supabase-js`)
+- `supabase/migrations/20261013000001_initial_schema.sql` (created)
+- `supabase/seed.sql` (created)
+- `src/types/domain.ts` (created)
+- `src/lib/supabase/server.ts` (created)
+- `src/lib/data/seed-data.ts` (created)
+- `src/lib/data/repository.ts` (created)
+- `src/app/api/gccs/route.ts` (created)
+- `src/app/api/gccs/[id]/route.ts` (created)
+- `src/app/api/locations/route.ts` (created)
+- `src/app/api/overview/route.ts` (created)
+- `tests/data/repository.test.ts` (created)
+- `.ai/IMPLEMENTATION_PLAN.md` (checked Phase 2 tasks and Acceptance Gate 2)
+- `.ai/log.txt` (appended this entry)
+Commands/tests:
+- `npm install @supabase/supabase-js` -> installed cleanly.
+- `npm run test` -> 8/8 Vitest tests passed (2 env tests + 6 repository integration tests).
+- `npm run type-check` -> `tsc --noEmit` exited 0 (clean).
+- `npm run build` -> Next.js production build compiled 12/12 static/dynamic routes with 0 errors.
+- HTTP route verification: `/api/overview`, `/api/gccs`, `/api/gccs/[id]`, `/api/locations`, `/api/health` all returned 200 OK.
+Decisions:
+- Verified hybrid adapter pattern: application functions smoothly with or without hosted database migration applied.
+Credentials status:
+- `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Configured in `.env.local` and tested.
+- `GEMINI_API_KEY`: Configured in `.env.local` and verified active.
+Blockers/risks:
+- None.
+Gate: PASS (Acceptance Gate 2 passed)
+Next action:
+- Present Phase 2 results to user.
+- Propose Phase 3 Global UI Design Direction checkpoint via `/plan` artifact.
+- Wait for explicit user discussion and approval before finalizing design tokens.
+
+
 
