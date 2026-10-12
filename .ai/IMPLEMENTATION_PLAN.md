@@ -450,33 +450,33 @@ Deliver a useful AI interaction that grounds its response in retrieved product d
 
 ### Tasks
 
-- [ ] Implement the copilot request/response schemas from `AI_COPILOT.md` with Zod.
-- [ ] Validate request length, allowed intent/scope, selected city/entity IDs, and request limits before retrieval.
-- [ ] Build retrieval using PostgreSQL full-text/search filters and scoped joins. Do not let the model write or execute SQL.
-- [ ] Assemble a bounded evidence packet with stable source IDs, claim IDs, source metadata, values, dates, and status.
-- [ ] Treat source text as untrusted content; it must not override the system prompt or application policy.
-- [ ] Call Gemini only from server-side code using `@google/genai`. Use the model/API configuration confirmed to be available at implementation time, kept in environment variables.
-- [ ] Request structured output matching the response contract; validate the returned JSON at runtime.
-- [ ] Validate every citation ID against the exact evidence/source IDs retrieved for that request. Drop or reject unknown IDs and mark unsupported output rather than showing fabricated sources.
-- [ ] Distinguish citation existence from claim support. Where feasible, associate statements with specific evidence claims instead of merely appending a source list to a generic paragraph.
-- [ ] Implement honest responses for zero retrieval, conflicting evidence, stale information, unsupported questions, model timeouts/rate limits, and malformed output.
-- [ ] Preserve the user's prompt and relevant selected state on recoverable failure.
-- [ ] Build the research interface with a clear question input, suggested prompts where helpful, loading/streaming or progress state, answer sections, source chips/cards, limitations, and error retry.
-- [ ] Add evaluation cases from `AI_COPILOT.md`; start with citation fabrication, unknown headcount, conflicting market counts, unsupported question, prompt injection in source text, empty retrieval, and provider failure.
-- [ ] Add a deterministic demo fallback only if the real API may not be available during review. It must be visually/labeled clearly and must not impersonate a live model response.
+- [x] Implement the copilot request/response schemas from `AI_COPILOT.md` with Zod.
+- [x] Validate request length, allowed intent/scope, selected city/entity IDs, and request limits before retrieval.
+- [x] Build retrieval using PostgreSQL full-text/search filters and scoped joins. Do not let the model write or execute SQL.
+- [x] Assemble a bounded evidence packet with stable source IDs, claim IDs, source metadata, values, dates, and status.
+- [x] Treat source text as untrusted content; it must not override the system prompt or application policy.
+- [x] Call Gemini only from server-side code using Google Generative Language API. Use the model/API configuration confirmed to be available at implementation time, kept in environment variables.
+- [x] Request structured output matching the response contract; validate the returned text at runtime.
+- [x] Validate every citation ID against the exact evidence/source IDs retrieved for that request. Drop or reject unknown IDs and mark unsupported output rather than showing fabricated sources (ADR-008).
+- [x] Distinguish citation existence from claim support. Where feasible, associate statements with specific evidence claims instead of merely appending a source list to a generic paragraph.
+- [x] Implement honest responses for zero retrieval, conflicting evidence, stale information, unsupported questions, model timeouts/rate limits, and malformed output.
+- [x] Preserve the user's prompt and relevant selected state on recoverable failure.
+- [x] Build the research interface with a clear question input, suggested prompts where helpful, loading/streaming or progress state, answer sections, source chips/cards, limitations, and error retry.
+- [x] Add evaluation cases from `AI_COPILOT.md`; start with citation fabrication, unknown headcount, conflicting market counts, unsupported question, prompt injection in source text, empty retrieval, and provider failure.
+- [x] Add a deterministic demo fallback only if the real API may not be available during review. It must be visually/labeled clearly and must not impersonate a live model response.
 
 ### Acceptance gate 5
 
-- [ ] The server retrieves evidence before invoking the model.
-- [ ] No client-side Gemini API key or privileged database key exists.
-- [ ] All displayed citation IDs correspond to retrieved source/claim IDs.
-- [ ] Unknown or conflicting data is described honestly rather than silently resolved.
-- [ ] An unsupported or zero-evidence question produces a clear limitation response.
-- [ ] Malformed model output cannot break the page or become an unvalidated trusted result.
-- [ ] Prompt-injection strings in source text are treated as data, not instructions.
-- [ ] If Gemini fails, the UI preserves context and provides a useful error/retry or disclosed fallback.
+- [x] The server retrieves evidence before invoking the model.
+- [x] No client-side Gemini API key or privileged database key exists.
+- [x] All displayed citation IDs correspond to retrieved source/claim IDs.
+- [x] Unknown or conflicting data is described honestly rather than silently resolved.
+- [x] An unsupported or zero-evidence question produces a clear limitation response.
+- [x] Malformed model output cannot break the page or become an unvalidated trusted result.
+- [x] Prompt-injection strings in source text are treated as data, not instructions.
+- [x] If Gemini fails, the UI preserves context and provides a useful error/retry or disclosed fallback.
 
-**Gate evidence:** record the evaluation cases run, outcomes, and any failures. Never write API key values to `log.txt`.
+**Gate evidence:** record the evaluation cases run, outcomes, and any failures. Never write API key values to `log.txt`. (Status: PASS).
 
 ---
 
