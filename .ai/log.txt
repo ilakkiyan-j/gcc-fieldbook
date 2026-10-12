@@ -361,6 +361,49 @@ Next action:
 - Propose Page Checkpoint 3A (Application Shell & Shared Navigation) via `/plan` artifact.
 - Wait for user approval before implementing the shell.
 
+[2026-10-13 03:58 IST] — CHECKPOINT 3A COMPLETE: Application Shell & Shared Navigation Implemented
+Goal:
+Implement approved Page Checkpoint 3A: Global AppShell with Bricolage Grotesque & Inter Google fonts, dual-state collapsible Sidebar (`horizontal_logo.png` <-> `logo.png`), responsive mobile overlay drawer, sticky Top Context Header with live breadcrumbs, quick search shortcut (⌘K), and honest research provenance footer.
+Completed:
+- Added official logos to `public/images/`: `horizontal_logo.png` (expanded sidebar) and `logo.png` (collapsed rail & mobile).
+- Updated `tailwind.config.ts` with font families (`font-heading`, `font-sans`) and brand tokens (`#1F6654`, `#F5F7F5`, `#DCE4DE`, evidence badge tokens).
+- Updated `src/app/globals.css` with clean CSS variable defaults.
+- Upgraded `src/components/shared/StatusBadge.tsx` with Lucide icons (`CheckCircle2`, `Clock`, `AlertTriangle`, `HelpCircle`) and high-contrast accessible tokens.
+- Implemented `src/components/shell/Sidebar.tsx` with 260px expanded state, 64px collapsed icon rail, active route highlighting, route descriptions, curated sample badge, and mobile drawer.
+- Implemented `src/components/shell/Header.tsx` with dynamic path breadcrumbs, ⌘K search trigger button, and live "Curated Sample" disclosure badge.
+- Implemented `src/components/shell/AppShell.tsx` coordinating layout states and global ⌘K shortcut listener.
+- Updated `src/app/layout.tsx` to load `Bricolage_Grotesque` and `Inter` via `next/font/google`, set favicon, and wrap content inside `<AppShell>`.
+- Removed obsolete temporary `src/components/shared/NavPlaceholder.tsx`.
+Files changed:
+- `public/images/logo.png` (created)
+- `public/images/horizontal_logo.png` (created)
+- `tailwind.config.ts` (updated)
+- `src/app/globals.css` (updated)
+- `src/components/shared/StatusBadge.tsx` (updated)
+- `src/components/shell/Sidebar.tsx` (created)
+- `src/components/shell/Header.tsx` (created)
+- `src/components/shell/AppShell.tsx` (created)
+- `src/app/layout.tsx` (updated)
+- `src/components/shared/NavPlaceholder.tsx` (deleted)
+- `.ai/IMPLEMENTATION_PLAN.md` (checked Checkpoint 3A)
+- `.ai/log.txt` (appended this entry)
+Validation performed:
+- `npm run type-check`: PASSED with 0 errors.
+- `npm run test`: PASSED (8/8 unit tests pass).
+- `npm run build`: PASSED (Next.js 15.5.27 production build succeeded with 12/12 static/dynamic routes compiled cleanly).
+Decisions:
+- Standardized logo placement: `horizontal_logo.png` on expanded desktop sidebar, `logo.png` on collapsed desktop rail and mobile header.
+Credentials status:
+- No new credentials required.
+Blockers/risks:
+- None.
+Gate: PASS (Page Checkpoint 3A passed)
+Next action:
+- Commit Checkpoint 3A to Git.
+- Report completion of Checkpoint 3A to user.
+- Present Page Checkpoint 3B (Overview Dashboard) plan with generated mockup image and wait for user approval before coding.
+
+
 
 
 

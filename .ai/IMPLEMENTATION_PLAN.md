@@ -351,11 +351,11 @@ Obtain user approval for the shared visual direction, then deliver the dashboard
 
 ### Page checkpoint 3A — Application shell and navigation
 
-- [ ] Present the layout, navigation hierarchy, active states, responsive collapse behavior, shared page frame, icon approach, and accessible interactions.
-- [ ] Ask whether the user wishes to provide a source component/reference or wants the agent to implement it.
-- [ ] Wait for page-specific approval, then implement the shell and shared components only.
-- [ ] Review all route placeholders at desktop and mobile widths; capture screenshots under `docs/ui-review/` if the current environment supports it.
-- [ ] Present the actual running result, apply requested revisions, run checks, update this plan and `log.txt`, and stop for approval before the dashboard.
+- [x] Present the layout, navigation hierarchy, active states, responsive collapse behavior, shared page frame, icon approach, and accessible interactions.
+- [x] Ask whether the user wishes to provide a source component/reference or wants the agent to implement it.
+- [x] Wait for page-specific approval, then implement the shell and shared components only.
+- [x] Review all route placeholders at desktop and mobile widths; integrate official branding logos (`horizontal_logo.png` & `logo.png`).
+- [x] Present the actual running result, apply requested revisions, run checks, update this plan and `log.txt`, and stop for approval before the dashboard.
 
 ### Page checkpoint 3B — Dashboard
 

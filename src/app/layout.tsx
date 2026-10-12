@@ -1,11 +1,29 @@
 import type { Metadata } from "next";
+import { Bricolage_Grotesque, Inter } from "next/font/google";
 import "./globals.css";
-import { NavPlaceholder } from "@/components/shared/NavPlaceholder";
+import { AppShell } from "@/components/shell/AppShell";
+
+const bricolage = Bricolage_Grotesque({
+  subsets: ["latin"],
+  variable: "--font-bricolage",
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
-  title: "GCC Fieldbook — The Working Guide to India's GCC Ecosystem",
+  title: "GCC Fieldbook — India's Global Capability Centre Intelligence Workspace",
   description:
-    "An evidence-first intelligence workspace for researching India's Global Capability Centre (GCC) ecosystem with transparent citations and comparative indicators.",
+    "An evidence-first intelligence workspace for researching India's Global Capability Centre (GCC) ecosystem with transparent citations, confidence ratings, and location telemetry.",
+  icons: {
+    icon: "/images/logo.png",
+  },
 };
 
 export default function RootLayout({
@@ -14,19 +32,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="min-h-screen flex flex-col bg-slate-50 text-slate-900 antialiased">
-        <NavPlaceholder />
-        <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {children}
-        </main>
-        <footer className="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
-          <div className="max-w-7xl mx-auto px-4">
-            <p>
-              GCC Fieldbook &bull; Curated assessment dataset &bull; Source-traceable research prototype
-            </p>
-          </div>
-        </footer>
+    <html lang="en" className={`${bricolage.variable} ${inter.variable}`}>
+      <body className="min-h-screen bg-canvas text-ink font-sans antialiased selection:bg-brand-soft selection:text-brand-ink">
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );
