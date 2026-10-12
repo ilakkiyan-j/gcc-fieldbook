@@ -411,26 +411,26 @@ Support a defensible comparison of at least two locations without implying that 
 
 ### Tasks
 
-- [ ] Implement the cities/indicators query and the comparison API/loader defined in `ARCHITECTURE.md`.
-- [ ] Select at least two cities for which credible source-backed information is available. The list may include Bengaluru, Hyderabad, Chennai, Pune, or NCR depending on evidence quality; never force a metric to populate merely for symmetry.
-- [ ] Choose a small set of indicators that have explicit definitions, units, and periods. Use fewer comparable indicators rather than more misleading ones.
-- [ ] Build a comparison table or aligned cards based on `DESIGN.md` and `PRD.md`.
-- [ ] Show the source and relevant dates near each value; support opening the source record.
-- [ ] Represent missing values as “Not available” or equivalent. Do not display missing as zero or rank a city based on absence of data.
-- [ ] If a composite score is implemented, document its inputs, weights, normalization, missing-data treatment, and limitations directly in the UI. The score is optional and should be cut if it introduces false precision.
-- [ ] Add a “How this comparison works”/methodology affordance.
-- [ ] Keep criteria selection small, comprehensible, and stable; do not add arbitrary sliders that do not affect computation.
+- [x] Implement the cities/indicators query and the comparison API/loader defined in `ARCHITECTURE.md`.
+- [x] Select at least two cities for which credible source-backed information is available. The list may include Bengaluru, Hyderabad, Chennai, Pune, or NCR depending on evidence quality; never force a metric to populate merely for symmetry.
+- [x] Choose a small set of indicators that have explicit definitions, units, and periods. Use fewer comparable indicators rather than more misleading ones.
+- [x] Build a comparison table or aligned cards based on `DESIGN.md` and `PRD.md`.
+- [x] Show the source and relevant dates near each value; support opening the source record.
+- [x] Represent missing values as “Not available” or equivalent. Do not display missing as zero or rank a city based on absence of data.
+- [x] If a composite score is implemented, document its inputs, weights, normalization, missing-data treatment, and limitations directly in the UI. The score is optional and should be cut if it introduces false precision.
+- [x] Add a “How this comparison works”/methodology affordance.
+- [x] Keep criteria selection small, comprehensible, and stable; do not add arbitrary sliders that do not affect computation.
 
 ### Acceptance gate 4
 
-- [ ] At least two cities can be selected and compared.
-- [ ] Values display units, periods, definitions or indicator descriptions, and source references where available.
-- [ ] Non-comparable values are not presented as directly comparable without a caveat.
-- [ ] Missing data is visually distinct from zero and from verified low values.
-- [ ] The methodology can be inspected by a reviewer.
-- [ ] Comparison controls work by keyboard and at mobile/tablet widths.
+- [x] At least two cities can be selected and compared.
+- [x] Values display units, periods, definitions or indicator descriptions, and source references where available.
+- [x] Non-comparable values are not presented as directly comparable without a caveat.
+- [x] Missing data is visually distinct from zero and from verified low values.
+- [x] The methodology can be inspected by a reviewer.
+- [x] Comparison controls work by keyboard and at mobile/tablet widths.
 
-**Gate evidence:** one concrete comparison example with source IDs and a pass/fail note in `log.txt`.
+**Gate evidence:** one concrete comparison example with source IDs and a pass/fail note in `log.txt`. (Status: PASS).
 
 ---
 

@@ -516,6 +516,44 @@ Next action:
 - Report completion of Checkpoint 3D and Phase 3 to user.
 - Present Phase 4 (Location Intelligence & Comparison Matrix) proposal with generated mockup image and wait for user approval before coding.
 
+[2026-10-13 04:25 IST] — PHASE 4 COMPLETE: Location Intelligence & Comparison Matrix (/locations) & Acceptance Gate 4 PASSED
+Goal:
+Implement Phase 4: Location Intelligence & Comparison Matrix (`/locations`) supporting a defensible side-by-side benchmark of Bengaluru vs. Hyderabad without implying that incomplete or non-comparable metrics are equivalent (ADR-007), rendering key indicators with explicit units and observation periods, comparing enacted state policy frameworks with gazette sources, and providing micro-market comparability disclosures.
+Completed:
+- Implemented `src/components/locations/CitySelector.tsx` for interactive hub selection (Bengaluru, Hyderabad) with state indicators and active counter.
+- Implemented `src/components/locations/IndicatorMatrixTable.tsx` providing side-by-side comparison of Grade-A office rents (₹95–₹130 vs ₹75–₹95, Q4 2025, JLL), talent pool (~1.5M vs ~900K, FY 2025, NASSCOM), explicit units, periods, micro-market comparability notes, and source citation links.
+- Implemented `src/components/locations/PolicyComparisonCards.tsx` comparing Karnataka GCC Policy 2024–2029 (500 centres target, patent reimbursement, Beyond Bengaluru incentives) vs. Telangana ICT Policy 2.0 (100% stamp duty exemption, TS-iPASS single-window, power subsidies) with state gazette source links.
+- Implemented `src/components/locations/ComparabilityDisclosure.tsx` detailing micro-market geographic scopes (ORR vs HITEC City) and honest treatment of pending FY26 power tariff schedules.
+- Implemented `src/components/locations/LocationsClient.tsx` coordinating dynamic city toggle filtering and cross-module links.
+- Updated `src/app/locations/page.tsx` as a Server Component fetching cities and indicator matrix from `repository.getCityComparison(["bengaluru", "hyderabad"])`.
+- Added test suite `tests/ui/locations.test.ts` validating indicator contracts, non-coerced units/periods, and policy hydration.
+Files changed:
+- `src/components/locations/CitySelector.tsx` (created)
+- `src/components/locations/IndicatorMatrixTable.tsx` (created)
+- `src/components/locations/PolicyComparisonCards.tsx` (created)
+- `src/components/locations/ComparabilityDisclosure.tsx` (created)
+- `src/components/locations/LocationsClient.tsx` (created)
+- `src/app/locations/page.tsx` (updated)
+- `tests/ui/locations.test.ts` (created)
+- `.ai/IMPLEMENTATION_PLAN.md` (checked Phase 4 and Acceptance Gate 4)
+- `.ai/log.txt` (appended this entry)
+Validation performed:
+- `npm run type-check`: PASSED with 0 errors.
+- `npm run test`: PASSED (24/24 tests across 6 test suites).
+- `npm run build`: PASSED (Next.js 15.5.27 production build compiled with all static and dynamic pages).
+Decisions:
+- Preserved ADR-007: Benchmarks reflect specific commercial micro-markets (Outer Ring Road vs. HITEC City) with explicit observation periods; missing metrics are flagged rather than coerced to zero.
+Credentials status:
+- No new credentials required.
+Blockers/risks:
+- None.
+Gate: PASS (Acceptance Gate 4 passed)
+Next action:
+- Commit Phase 4 to Git.
+- Report completion of Phase 4 to user.
+- Present Phase 5 (AI Research Copilot) proposal with generated mockup image and wait for user approval before coding.
+
+
 
 
 
