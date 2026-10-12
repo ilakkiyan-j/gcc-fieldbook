@@ -1,0 +1,229 @@
+GCC FIELDBOOK — IMPLEMENTATION LOG
+
+[2026-10-13 02:10 Asia/Kolkata] — DOCUMENTATION CHECKPOINT: Implementation plan created
+Goal:
+Create an executable, phased plan for the 72-hour assessment MVP and define how the AI coding agent records progress.
+Completed:
+- Added `.ai/IMPLEMENTATION_PLAN.md` with P0/P1 scope, phase schedule, acceptance gates, test strategy, primary demo scenario, release checklist, and agent operating rules.
+- Defined required checkpoint logging fields and a no-secrets policy for the log.
+Files changed:
+- `.ai/IMPLEMENTATION_PLAN.md` (created)
+- `.ai/log.txt` (created)
+Commands/tests:
+- Inspected existing `.ai` documents and confirmed PRD, ARCHITECTURE, DESIGN, DATA_TRUST, and AI_COPILOT files exist.
+- Cross-checked MVP scope and technology against the PRD and architecture documents.
+- No application code or software test suite has been run yet; this is a documentation checkpoint.
+Manual checks:
+- Confirmed file paths and internal reference names match the current documentation directory.
+Decisions:
+- P0-first implementation; defer providers and other P1 features until core workflow passes.
+- Prefer a single Next.js app, Supabase PostgreSQL, server-side Gemini integration, and curated source-backed data.
+- Keep the demo session-only where possible; no user accounts or persistent brief storage in the MVP.
+Blockers/risks:
+- Repository application code, dependencies, credentials, and live data seed have not yet been inspected or validated; do not infer that the application exists or is working.
+Gate: PASS (documentation plan only)
+Next action:
+1. Create `TESTING.md` with executable test cases mapped to the PRD and implementation gates.
+2. Create or review `DECISIONS.md` and settle any unresolved setup choices during Phase 0.
+3. Begin Phase 0 repository inspection before writing application code.
+
+[2026-10-13 02:19 Asia/Kolkata] — DOCUMENTATION CHECKPOINT: TESTING.md created
+Goal:
+Define repeatable tests and release gates for the GCC Fieldbook assessment MVP.
+Completed:
+- Added `.ai/TESTING.md` with static, unit, integration, component, end-to-end, manual, AI-grounding, security, accessibility, and release validation guidance.
+- Added 50+ mapped acceptance scenarios across configuration, data trust, Explorer, city comparison, AI copilot, decision briefs, usability, and deployment.
+- Defined per-phase quality gates that align with `.ai/IMPLEMENTATION_PLAN.md`.
+- Required honest test status reporting and exact command results in `.ai/log.txt`.
+Files changed:
+- `.ai/TESTING.md` (created)
+- `.ai/log.txt` (updated)
+Commands/tests:
+- Inspected headings and relevant sections in `.ai/PRD.md`, `.ai/ARCHITECTURE.md`, `.ai/IMPLEMENTATION_PLAN.md`, `.ai/AI_COPILOT.md`, and the previous log entry.
+- Checked the documentation directory and confirmed application source/dependencies have not yet been created as part of these documentation checkpoints.
+- No software test suite was run; this was a documentation-only checkpoint.
+Manual checks:
+- Matched proposed routes to architecture API contracts.
+- Marked tool/setup-dependent tests as conditional on actual configured scripts.
+- Confirmed no test is claimed as passed without execution.
+Decisions:
+- Use Vitest for unit/integration tests and Playwright for the critical path if configured within the assessment deadline.
+- Keep automated tests deterministic with mocked Gemini/Supabase boundaries wherever practical.
+- Treat fabricated citations, unsupported factual claims, exposed secrets, and an inaccessible deployed app as P0 blockers.
+Blockers/risks:
+- Actual application code, dependencies, and testing scripts do not yet exist/are not verified in this checkpoint.
+- End-to-end and live Gemini smoke tests cannot be run until implementation and credentials are set up.
+Gate: PASS (testing specification created; software behavior not yet tested)
+Next action:
+1. Review/create `.ai/DECISIONS.md` to capture architectural choices and open decisions.
+2. Begin Phase 0 repository inspection using `.ai/IMPLEMENTATION_PLAN.md` before generating application code.
+
+
+[2026-10-13 02:22 Asia/Kolkata] — DOCUMENTATION CHECKPOINT: DECISIONS.md created
+Goal:
+Record durable technical/product decisions, their rationale, and open items to resolve during implementation.
+Completed:
+- Added `.ai/DECISIONS.md` with 18 accepted ADRs, 3 proposed decisions, and 8 open decisions with resolution methods.
+- Defined a change protocol so accepted decisions are not silently changed and implementation checkpoints remain traceable.
+- Aligned decision records with the current PRD, architecture, design, data trust, AI copilot, implementation plan, and testing documents.
+Files changed:
+- `.ai/DECISIONS.md` (created)
+- `.ai/log.txt` (updated)
+Commands/tests:
+- Inspected current `.ai` document inventory and reviewed architecture, PRD, design, implementation-plan, and prior log details.
+- Checked that the decisions cover the selected stack, evidence provenance, AI boundaries, public read-only demo model, test approach, and deploy target.
+- No application code was changed and no software tests were run; this is a documentation checkpoint.
+Manual checks:
+- Included explicit open items for repository state, Gemini model availability, Supabase/RLS, seed data verification, persistent rate limiting, and Playwright feasibility.
+- Confirmed all decisions are framed as proposed baseline where implementation-time validation is still required.
+Decisions:
+- Keep the research workflow evidence-first and prioritize P0 end-to-end delivery.
+- Use deterministic PostgreSQL retrieval before AI generation; do not add a vector database without demonstrated need.
+- Preserve claim-level evidence and make model citation references resolvable only against server-retrieved records.
+Blockers/risks:
+- The application repository has not yet been inspected for existing source code, package manager, current scripts, credentials, or deployment configuration.
+- Gemini model access, Supabase project/RLS, verified seed records, persistent rate limiter, and E2E test feasibility remain open until checked in the relevant phase.
+Gate: PASS (decision register created; implementation decisions requiring environment verification remain open)
+Next action:
+1. Begin Phase 0 of `.ai/IMPLEMENTATION_PLAN.md`: inspect the repository, installed dependencies, scripts, environment and existing app health before scaffolding or changing code.
+2. Resolve Phase 0 open decisions in `.ai/DECISIONS.md` and keep `.ai/log.txt` updated after the checkpoint.
+
+[2026-10-13 02:25 Asia/Kolkata] — DOCUMENTATION CHECKPOINT: Data dictionary created
+Goal:
+Define a canonical field-level contract for the GCC Fieldbook data model, including entity meaning, PostgreSQL types, controlled vocabularies, relationships, nullability, and evidence behavior.
+Completed:
+- Added `docs/data-dictionary.md` covering companies, cities, GCC centres, sources, company-source relationships, city indicators, policies, evidence claims, and the optional P1 provider model.
+- Defined controlled source/evidence/centre statuses, normalization and missing-data rules, conflict grouping, source freshness, seed-data integrity, API type mapping, and copilot evidence-packet requirements.
+- Documented current schema boundaries for aggregate market statistics, provider claim targets, typed date claims, explicit missingness records, and multi-source normalized claims so the implementation agent does not silently overstate schema support.
+Files changed:
+- `docs/data-dictionary.md` (created)
+- `.ai/log.txt` (updated)
+Commands/tests:
+- Reviewed the table and relationship proposal in `.ai/ARCHITECTURE.md`.
+- Cross-checked evidence status/source type definitions in `.ai/DATA_TRUST.md` and AI citation IDs/payload requirements in `.ai/AI_COPILOT.md`.
+- Cross-checked seed requirements and P0/P1 boundaries in `.ai/PRD.md` and `.ai/IMPLEMENTATION_PLAN.md`.
+- No application code or database migrations were changed; no software tests were run in this documentation checkpoint.
+Manual checks:
+- Kept column meanings and initial table relationships aligned with the architecture baseline.
+- Explicitly documented open schema gaps instead of silently adding unsupported claim targets or market-statistics structures.
+- Verified the output path and project-relative links.
+Decisions:
+- Use the data dictionary as the field-level reference for SQL migrations, TypeScript DTOs, seed data, and source rendering.
+- Keep the core claim model source-backed and claim-level; preserve conflicting observations instead of overwriting them.
+- Resolve schema expansions through `DECISIONS.md` and update architecture, dictionary, seed data, and tests together.
+Blockers/risks:
+- The schema has not yet been implemented in SQL, so database constraints and migration behavior remain untested.
+- Market-statistic and provider evidence support require a coordinated schema decision before those features are built beyond the P0 scope.
+Gate: PASS (documentation checkpoint only; database implementation not validated)
+Next action:
+1. Create `docs/demo-script.md` if needed for the reviewer walkthrough, then complete README/submission documentation only when a real app/deployment exists.
+2. Begin Phase 0 repository inspection as specified in `.ai/IMPLEMENTATION_PLAN.md` before application code generation.
+
+[2026-10-13 — MASTER BUILD PROMPT CREATED]
+Goal:
+Provide one executable master prompt that directs an AI coding agent to build GCC Fieldbook using the existing project specifications and phased quality gates.
+Completed:
+- Added `.ai/MASTER_PROMPT.md` describing the product mission, repository inspection, specification precedence, technical baseline, P0 scope, data trust, AI citation validation, security, design, routes, phase gates, logging protocol, tests, and final acceptance criteria.
+- Explicitly instructed the agent to verify the real repository state first; current supplied tree appears documentation-only, but the agent must inspect its active filesystem before scaffolding.
+- Required each implementation phase to record actual files, commands, test outcomes, decisions, blockers, gate status, and next actions.
+Files changed:
+- `.ai/MASTER_PROMPT.md` (created)
+- `.ai/log.txt` (updated)
+Validation:
+- Cross-checked master prompt requirements against `.ai/IMPLEMENTATION_PLAN.md`, `.ai/PRD.md`, `.ai/ARCHITECTURE.md`, `.ai/DESIGN.md`, `.ai/DATA_TRUST.md`, `.ai/AI_COPILOT.md`, `.ai/TESTING.md`, `.ai/DECISIONS.md`, and `docs/data-dictionary.md`.
+- Confirmed current working tree at creation time contains project documentation but no `package.json` or application source files.
+- No application code has been implemented and no software tests have been run as part of creating this prompt.
+Gate: PASS (master prompt/documentation checkpoint only)
+Next action:
+- Give `.ai/MASTER_PROMPT.md` to the AI coding agent in the active repository and direct it to start Phase 0 of `.ai/IMPLEMENTATION_PLAN.md`.
+
+
+[2026-10-13 02:42 IST] — IMPLEMENTATION PLAN UPDATED: Collaborative checkpoints and page-by-page UI approval
+Goal:
+Update the implementation checklist to follow the requested user-controlled workflow: plan, disclose credentials/access, wait for approval, execute, verify, update the checklist and log, and stop before the next phase.
+Completed:
+- Added a mandatory phase contract: PLAN → CREDENTIALS/ACCESS → USER APPROVAL → EXECUTE → VERIFY → UPDATE IMPLEMENTATION CHECKLIST + LOG → REPORT → WAIT.
+- Added conditional credential guidance for Supabase, Gemini, and Vercel; clarified safe secret storage and what can proceed without credentials.
+- Added a global UI design discussion for fonts, color/theme, information density, navigation, icons, components, spacing, and responsive behavior.
+- Added page-by-page approval gates for application shell, dashboard, GCC Explorer, GCC profile/evidence, location comparison, AI Copilot, and Decision Brief.
+- Clarified that the agent develops the UI by default, while the user may provide reference screenshots, components, or source code; the agent must show a real preview and apply feedback before proceeding.
+- Made implementation checklist and log updates mandatory after completed, failed, blocked, and UI-page checkpoints.
+Files changed:
+- `.ai/IMPLEMENTATION_PLAN.md` (updated to version 0.2)
+- `.ai/log.txt` (appended this revision checkpoint)
+Validation performed:
+- Checked required workflow tokens and key UI/credential clauses are present.
+- Verified all project documents referenced by the implementation plan exist in the current workspace.
+- Checked phase table alignment with Phase 0–8 section structure and page-by-page checkpoints.
+Tests:
+- No application/software tests were run; this was a documentation-only change.
+Decisions:
+- Require explicit approval before each implementation phase and each UI page.
+- Global design approval does not imply approval of individual page layouts.
+- Always update `IMPLEMENTATION_PLAN.md` and `log.txt` together, including on failure/blockage.
+Blockers/risks:
+- The master build prompt has not yet been updated to match this revised implementation plan; the user asked to revise the implementation document first.
+Gate: PASS (documentation updated and consistency checks passed; app behavior remains unimplemented/unverified).
+Next action:
+1. Review the revised implementation plan.
+2. When requested, update `.ai/MASTER_PROMPT.md` to enforce the same approval and UI collaboration protocol.
+
+[2026-10-13 IST] — MASTER PROMPT UPDATED: User-approved phase flow and page-by-page UI collaboration
+Goal:
+Align the master build prompt with the revised implementation plan and the user's requested collaborative workflow.
+Completed:
+- Replaced automatic phase progression with the mandatory PLAN → CREDENTIALS/ACCESS → USER APPROVAL → EXECUTE → VERIFY → UPDATE CHECKLIST + LOG → REPORT → WAIT contract.
+- Added a requirement to identify credentials/permissions before each phase, name exact environment variables, separate required vs optional access, and explain what can proceed without credentials; secret values must never be pasted into chat or written to files/logs.
+- Added global UI direction approval covering fonts, palette/theme, information density, navigation, icons, component source/design-system choice, and interaction style.
+- Added page-by-page UI discussion, ask whether the user has references/source code or wants the agent to implement, approval before coding, actual preview/review, feedback, tests, and checklist/log update before the next page.
+- Made `.ai/IMPLEMENTATION_PLAN.md` and `.ai/log.txt` compulsory updates after every phase and UI-page checkpoint, including failures and blockers.
+- Updated startup behavior so the coding agent prepares Phase 0 and waits for explicit approval before editing/scaffolding, then waits again before each next phase.
+Files changed:
+- `.ai/MASTER_PROMPT.md` (updated to version 0.2)
+- `.ai/log.txt` (appended this entry)
+Validation performed:
+- Cross-checked the revised master prompt against `.ai/IMPLEMENTATION_PLAN.md` version 0.2 and its phase/page approval protocol.
+- Checked that the conflicting automatic-progression instruction was removed and explicit wait/approval rules are present.
+- Confirmed the prompt continues to reference PRD, research, architecture, design, data-trust, AI, testing, decisions, data dictionary, implementation checklist, and log files.
+Tests:
+- Documentation consistency checks only; no application code or software tests were run.
+Gate: PASS (master prompt documentation updated; application remains unimplemented/unverified).
+Next action:
+- Provide `.ai/MASTER_PROMPT.md` to the chosen coding agent. The agent should present the Phase 0 plan and credential/access audit, then wait for explicit approval before making repository changes.
+
+[2026-10-13 02:52 IST] — PHASE 0 COMPLETE: Repository inspection and specification reconciliation
+Goal:
+Execute Phase 0: inspect working directory, audit toolchain and version control status, verify existing documentation and data dictionary, reconcile specifications, and confirm architectural decisions without generating premature application code.
+Completed:
+- Inspected repository root: verified presence of `.ai/` and `docs/` directories. Confirmed absence of prior application code, package manifests, lockfiles, or exposed secrets.
+- Checked runtime toolchain: Node.js v26.7.0, npm 11.6.0, Git 2.46.0.windows.1.
+- Validated Git status: verified root is not currently a git repository (`fatal: not a git repository`). Initial git repository setup will be performed during Phase 1 scaffolding.
+- Reconciled core specifications: aligned `.ai/PRD.md`, `.ai/ARCHITECTURE.md`, `.ai/DATA_TRUST.md`, `.ai/AI_COPILOT.md`, and `docs/data-dictionary.md`.
+- Settled ADR-019 (Accepted: scaffold clean Next.js App Router project in root without disturbing `.ai/` and `docs/`), OPEN-006 (Resolved: use npm package manager), and OPEN-007 (Resolved: no user authentication in MVP).
+- Verified Acceptance Gate 0 in `.ai/IMPLEMENTATION_PLAN.md`.
+Files changed:
+- `.ai/DECISIONS.md` (updated ADR-019, OPEN-006, OPEN-007)
+- `.ai/IMPLEMENTATION_PLAN.md` (checked Phase 0 tasks and Acceptance Gate 0)
+- `.ai/log.txt` (appended this entry)
+Commands/tests:
+- `git status` -> exit 1 (not a git repository).
+- `Get-ChildItem -Force` -> confirmed only `.ai` and `docs` directories exist.
+- `node -v; npm -v; git --version` -> Node v26.7.0, npm 11.6.0, git 2.46.0.windows.1.
+- Verified absence of `.env*` secret files.
+Decisions:
+- ADR-019 accepted: Initialize clean Next.js App Router project in repository root in Phase 1.
+- OPEN-006 resolved: Use `npm` and standard `package-lock.json`.
+- OPEN-007 resolved: Public read-only architecture; no authentication or login in MVP.
+Credentials status:
+- Phase 0 credentials required: None.
+- Phase 1 credentials required: None.
+- Supabase (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`) deferred to Phase 2.
+- Gemini (`GEMINI_API_KEY`) deferred to Phase 5.
+Blockers/risks:
+- None for Phase 1.
+Gate: PASS (Acceptance Gate 0 passed)
+Next action:
+- Present Phase 0 results to user.
+- Propose Phase 1 Implementation Plan via `/plan` artifact as requested by user.
+- Wait for explicit user approval before executing Phase 1 scaffolding.
+
