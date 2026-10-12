@@ -490,25 +490,25 @@ Turn the current research question, comparison selections, and retrieved sources
 
 ### Tasks
 
-- [ ] Define a validated brief input contract: question/objective, selected records/cities, comparison criteria, and referenced evidence IDs.
-- [ ] Reuse the retrieval and citation-validation pipeline rather than adding a separate ungrounded prompt flow.
-- [ ] Generate a structured brief containing: title/objective, executive finding or shortlist, options considered, rationale, cited evidence, assumptions, data gaps/limitations, and next questions/actions.
-- [ ] Make recommendations conditional on the evidence and stated priorities; don't present a universal “best city” if user goals or sourced data do not justify it.
-- [ ] Display citations beside material claims and provide an inspectable source list.
-- [ ] Include generated-at time and a clear note that the brief reflects the currently available curated dataset.
-- [ ] Provide copy-to-clipboard and/or Markdown download if achievable with reliable behavior. Prefer session-only state; persistent user accounts/report storage are out of scope.
-- [ ] Handle generation failures without erasing the user's inputs or the comparison state.
+- [x] Define a validated brief input contract: question/objective, selected records/cities, comparison criteria, and referenced evidence IDs.
+- [x] Reuse the retrieval and citation-validation pipeline rather than adding a separate ungrounded prompt flow.
+- [x] Generate a structured brief containing: title/objective, executive finding or shortlist, options considered, rationale, cited evidence, assumptions, data gaps/limitations, and next questions/actions.
+- [x] Make recommendations conditional on the evidence and stated priorities; don't present a universal “best city” if user goals or sourced data do not justify it.
+- [x] Display citations beside material claims and provide an inspectable source list.
+- [x] Include generated-at time and a clear note that the brief reflects the currently available curated dataset.
+- [x] Provide copy-to-clipboard and/or Markdown download if achievable with reliable behavior. Prefer session-only state; persistent user accounts/report storage are out of scope.
+- [x] Handle generation failures without erasing the user's inputs or the comparison state.
 
 ### Acceptance gate 6
 
-- [ ] A brief can be generated for the primary demo scenario.
-- [ ] The output has all required sections or clearly indicates when a section cannot be supported.
-- [ ] Every displayed citation resolves to a source/evidence record and opens successfully.
-- [ ] Assumptions, unknowns, and conflicting evidence are visible.
-- [ ] Copy/download works and preserves readable formatting, if included.
-- [ ] No brief claims that the dataset is exhaustive or the recommendation is guaranteed.
+- [x] A brief can be generated for the primary demo scenario.
+- [x] The output has all required sections or clearly indicates when a section cannot be supported.
+- [x] Every displayed citation resolves to a source/evidence record and opens successfully.
+- [x] Assumptions, unknowns, and conflicting evidence are visible.
+- [x] Copy/download works and preserves readable formatting, if included.
+- [x] No brief claims that the dataset is exhaustive or the recommendation is guaranteed.
 
-**Gate evidence:** save a representative anonymized demo output or test fixture in `docs/` if helpful, and record the smoke-test result in `log.txt`.
+**Gate evidence:** save a representative anonymized demo output or test fixture in `docs/` if helpful, and record the smoke-test result in `log.txt`. (Status: PASS).
 
 ---
 
