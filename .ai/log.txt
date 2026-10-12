@@ -327,5 +327,40 @@ Next action:
 - Propose Phase 3 Global UI Design Direction checkpoint via `/plan` artifact.
 - Wait for explicit user discussion and approval before finalizing design tokens.
 
+[2026-10-13 03:43 IST] — CHECKPOINT 3.0 COMPLETE: Global UI design direction approved
+Goal:
+Execute Checkpoint 3.0: Present global visual system choices and trade-offs for typography, color palette, density, navigation shell, and icons; incorporate user's explicit design choices into project register and implementation plan before styling shared tokens or individual pages.
+Completed:
+- Presented visual choices across 5 dimensions in `phase_3_design_direction_plan.md`.
+- Received and recorded user-approved visual direction:
+  1. Typography: Bricolage Grotesque (`next/font/google`) for display/headings, paired with Inter for body text and tabular monospace numbers for data metrics.
+  2. Color Palette: Option A (Fieldbook Warm & Evergreen: Canvas #F5F7F5, Surface #FFFFFF, Evergreen #1F6654 brand accent, high-contrast evidence badges).
+  3. Information Density: Option A (Balanced Analyst Density: 40-48px rows, visible gridlines, sticky table headers).
+  4. Navigation Architecture: Option A (Dual Shell: Collapsible Left Sidebar + Top Context Header with breadcrumbs and live "Curated Sample" indicator).
+  5. Iconography: Lucide React with consistent 1.5px/1.75px stroke width.
+- Updated `phase_3_design_direction_plan.md` artifact with approved choices.
+- Recorded ADR-022 in `.ai/DECISIONS.md`.
+- Updated Checkpoint 3.0 in `.ai/IMPLEMENTATION_PLAN.md`.
+Files changed:
+- `phase_3_design_direction_plan.md` (updated artifact)
+- `.ai/DECISIONS.md` (recorded ADR-022)
+- `.ai/IMPLEMENTATION_PLAN.md` (checked Checkpoint 3.0)
+- `.ai/log.txt` (appended this entry)
+Validation performed:
+- Verified consistency with `.ai/DESIGN.md` color system and typographic scales.
+- Confirmed Bricolage Grotesque and Inter are available via `next/font/google`.
+Decisions:
+- ADR-022 accepted: Global UI Design Direction established. Individual pages will be approved and implemented one by one in subsequent checkpoints.
+Credentials status:
+- No new credentials required for design tokens.
+Blockers/risks:
+- None.
+Gate: PASS (Checkpoint 3.0 passed)
+Next action:
+- Present Checkpoint 3.0 confirmation.
+- Propose Page Checkpoint 3A (Application Shell & Shared Navigation) via `/plan` artifact.
+- Wait for user approval before implementing the shell.
+
+
 
 

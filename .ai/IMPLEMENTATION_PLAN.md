@@ -342,12 +342,12 @@ Obtain user approval for the shared visual direction, then deliver the dashboard
 
 ### Checkpoint 3.0 — Global UI direction (discussion and decision only)
 
-- [ ] Present practical choices and trade-offs for fonts/typography, palette/theme, information density, navigation/layout, icons, component approach, spacing, borders/radius/shadows, charts/tables, motion, and responsive behavior.
-- [ ] Ask whether the user has reference screenshots, websites, icons, design assets, or component/source code they want to supply, or whether the agent should create the UI. Agent implementation is the default; user-provided code/assets are optional.
-- [ ] Recommend a coherent visual direction with reasons, but allow the user to choose, customize, or delegate decisions.
-- [ ] Wait for explicit user approval before finalizing design tokens or shared visual styling.
-- [ ] Record the approved direction in `DESIGN.md` and relevant decisions in `DECISIONS.md`.
-- [ ] Update this checklist and append to `log.txt`; stop and wait for approval to begin the application-shell page checkpoint.
+- [x] Present practical choices and trade-offs for fonts/typography, palette/theme, information density, navigation/layout, icons, component approach, spacing, borders/radius/shadows, charts/tables, motion, and responsive behavior.
+- [x] Ask whether the user has reference screenshots, websites, icons, design assets, or component/source code they want to supply, or whether the agent should create the UI. Agent implementation is the default; user-provided code/assets are optional.
+- [x] Recommend a coherent visual direction with reasons, but allow the user to choose, customize, or delegate decisions.
+- [x] Wait for explicit user approval before finalizing design tokens or shared visual styling. (Approved: Bricolage Grotesque, Option A Warm Evergreen palette, Option A Balanced Analyst density, Option A Dual Shell).
+- [x] Record the approved direction in `DESIGN.md` and relevant decisions in `DECISIONS.md` (ADR-022 recorded).
+- [x] Update this checklist and append to `log.txt`; stop and wait for approval to begin the application-shell page checkpoint.
 
 ### Page checkpoint 3A — Application shell and navigation
 

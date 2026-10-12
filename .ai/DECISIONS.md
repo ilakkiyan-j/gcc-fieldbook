@@ -192,6 +192,19 @@ Use the conflict-resolution hierarchy documented in `IMPLEMENTATION_PLAN.md`: `P
 
 **Consequences:** Do not rank cities or providers on unsourced or incomparable values. Avoid implying causal conclusions from correlation or limited examples. Where there is not enough comparable evidence, display “insufficient comparable data” instead of manufacturing a score.
 
+### ADR-022 — Global UI Design Direction & Visual Tokens
+
+**Status:** Accepted (Approved in Checkpoint 3.0)  
+**Decision:** Adopt the "Fieldbook Editorial" visual system featuring:
+1. **Typography:** Bricolage Grotesque (`next/font/google`) for high-impact editorial headings and brand wordmark; Inter for crisp interface body text and data tables; tabular monospace numerals for rents, headcounts, and metric benchmarks.
+2. **Palette:** Light-first warm neutral surfaces (Canvas `#F5F7F5`, Surface `#FFFFFF`, Border `#DCE4DE`), restrained institutional Evergreen brand accent (`#1F6654`), and high-contrast, multi-cue evidence badges (`verified`, `estimated`, `conflicting`, `unknown`).
+3. **Density:** Balanced Analyst Density (40–48px rows, visible gridlines, sticky table headers).
+4. **Shell:** Dual navigation shell with collapsible left sidebar for primary journey routes and top context header with breadcrumbs and live "Curated Sample" indicator.
+
+**Context:** Approved by the user following Section 9.1 discussion in MASTER_PROMPT.md.
+
+**Consequences:** Configure Tailwind tokens and CSS custom properties in Checkpoint 3.0. Individual UI pages will be approved and implemented one by one against these tokens.
+
 ---
 
 ## 3. Proposed decisions to confirm in Phase 0
