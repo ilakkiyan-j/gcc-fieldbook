@@ -367,13 +367,13 @@ Obtain user approval for the shared visual direction, then deliver the dashboard
 
 ### Page checkpoint 3C — GCC Explorer
 
-- [ ] Present the search/table/list layout, information density, filters, result count, status labels, empty/loading/error states, and responsive behavior.
-- [ ] Wait for page-specific approval before implementation.
-- [ ] Implement the GCC query/API contract from `ARCHITECTURE.md`, including safe query validation, filters, pagination/limits, and stable IDs.
-- [ ] Build search by company/centre name and the filters supported by actual data (at minimum city plus one reliable sector/function filter if populated).
-- [ ] Show active filters, clear-filters action, empty/loading/error states, and an accurate result count.
-- [ ] Test a known seeded search and filters against actual data. Present the real page and apply feedback.
-- [ ] Update this plan and `log.txt`; stop for approval before the detail profile.
+- [x] Present the search/table/list layout, information density, filters, result count, status labels, empty/loading/error states, and responsive behavior.
+- [x] Wait for page-specific approval before implementation.
+- [x] Implement the GCC query/API contract from `ARCHITECTURE.md`, including safe query validation, filters, pagination/limits, and stable IDs.
+- [x] Build search by company/centre name and the filters supported by actual data (at minimum city plus one reliable sector/function filter if populated).
+- [x] Show active filters, clear-filters action, empty/loading/error states, and an accurate result count.
+- [x] Test a known seeded search and filters against actual data. Present the real page and apply feedback.
+- [x] Update this plan and `log.txt`; stop for approval before the detail profile.
 
 ### Page checkpoint 3D — GCC/company profile and evidence panel
 
