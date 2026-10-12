@@ -273,28 +273,28 @@ Create a stable, deployable application shell before connecting the full dataset
 
 ### Tasks
 
-- [ ] Set up or validate Next.js App Router with strict TypeScript.
-- [ ] Add Tailwind CSS and configure shadcn/ui only as needed; install Lucide icons and the required baseline UI dependencies.
-- [ ] Add the selected package scripts for development, linting, type checking, testing, and production build. Do not leave scripts pointing to tools that are not installed.
-- [ ] Use the existing package manager if a lockfile is present. If the repo is new, choose one package manager and commit only its lockfile.
-- [ ] Create neutral route placeholders for `/`, `/gccs`, `/gccs/[id]`, `/locations`, `/research`, and `/brief` as specified by the architecture and PRD.
-- [ ] Do not finalize the app shell, font, color tokens, icons, component style, charts, page layout, or motion until the user has approved the global UI direction in Section 2.6.
-- [ ] It is acceptable to implement a minimal temporary scaffold needed to verify routing/builds, but label it as temporary and do not treat it as approved design.
-- [ ] Add shared UI states: loading/skeleton, empty state, recoverable error, and not-found page.
-- [ ] Add typed environment-variable validation on the server. Keep `.env.local` ignored by Git and ensure `.env.example` contains names and safe placeholders only.
-- [ ] Add a minimal health/ready behavior appropriate to the app; do not expose environment secrets in the response.
-- [ ] Add initial README setup steps, marked as provisional until fully verified.
+- [x] Set up or validate Next.js App Router with strict TypeScript.
+- [x] Add Tailwind CSS and configure shadcn/ui only as needed; install Lucide icons and the required baseline UI dependencies.
+- [x] Add the selected package scripts for development, linting, type checking, testing, and production build. Do not leave scripts pointing to tools that are not installed.
+- [x] Use the existing package manager if a lockfile is present. If the repo is new, choose one package manager and commit only its lockfile.
+- [x] Create neutral route placeholders for `/`, `/gccs`, `/gccs/[id]`, `/locations`, `/research`, and `/brief` as specified by the architecture and PRD.
+- [x] Do not finalize the app shell, font, color tokens, icons, component style, charts, page layout, or motion until the user has approved the global UI direction in Section 2.6.
+- [x] It is acceptable to implement a minimal temporary scaffold needed to verify routing/builds, but label it as temporary and do not treat it as approved design.
+- [x] Add shared UI states: loading/skeleton, empty state, recoverable error, and not-found page.
+- [x] Add typed environment-variable validation on the server. Keep `.env.local` ignored by Git and ensure `.env.example` contains names and safe placeholders only.
+- [x] Add a minimal health/ready behavior appropriate to the app; do not expose environment secrets in the response.
+- [x] Add initial README setup steps, marked as provisional until fully verified.
 
 ### Acceptance gate 1
 
-- [ ] App starts locally using documented commands.
-- [ ] All required routes load without runtime errors.
-- [ ] Production build and type checks pass.
-- [ ] No secret value is committed or referenced in client components.
-- [ ] Temporary route scaffolding is readable enough to test, without implying that final UI styling has been approved.
-- [ ] No final brand styling or page design was implemented before the design approval checkpoint.
+- [x] App starts locally using documented commands.
+- [x] All required routes load without runtime errors.
+- [x] Production build and type checks pass.
+- [x] No secret value is committed or referenced in client components.
+- [x] Temporary route scaffolding is readable enough to test, without implying that final UI styling has been approved.
+- [x] No final brand styling or page design was implemented before the design approval checkpoint.
 
-**Gate evidence:** exact commands run and their results are written in `log.txt`.
+**Gate evidence:** exact commands run and their results are written in `log.txt`. (Status: PASS).
 
 ---
 
