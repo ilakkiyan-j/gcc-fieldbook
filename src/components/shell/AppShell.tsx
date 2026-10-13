@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Menu, Search } from "lucide-react";
 import { Sidebar } from "@/components/shell/Sidebar";
+import { CommandPalette } from "@/components/shell/CommandPalette";
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -40,26 +41,35 @@ export function AppShell({ children }: AppShellProps) {
     });
   };
 
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
   // Global keyboard shortcut for ⌘K / Ctrl+K search trigger
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
-        router.push("/gccs");
+        setIsSearchOpen((prev) => !prev);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [router]);
+  }, []);
 
   return (
     <div className="min-h-screen flex bg-surface-canvas text-ink antialiased">
+      {/* Global Command Palette Modal (Ctrl+K / Cmd+K) */}
+      <CommandPalette
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+      />
+
       {/* Desktop & Mobile Responsive Sidebar */}
       <Sidebar
         isCollapsed={isCollapsed}
         onToggleCollapse={handleToggleCollapse}
         isMobileOpen={isMobileOpen}
         onCloseMobile={() => setIsMobileOpen(false)}
+        onOpenSearch={() => setIsSearchOpen(true)}
       />
 
       {/* Main Layout Area */}
@@ -85,7 +95,7 @@ export function AppShell({ children }: AppShellProps) {
             </Link>
           </div>
           <button
-            onClick={() => router.push("/gccs")}
+            onClick={() => setIsSearchOpen(true)}
             className="p-2 rounded-lg text-ink-muted hover:text-ink hover:bg-surface-subtle"
             aria-label="Quick search"
           >

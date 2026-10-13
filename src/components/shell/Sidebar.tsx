@@ -23,6 +23,7 @@ interface SidebarProps {
   onToggleCollapse: () => void;
   isMobileOpen: boolean;
   onCloseMobile: () => void;
+  onOpenSearch?: () => void;
 }
 
 const NAV_ITEMS = [
@@ -63,6 +64,7 @@ export function Sidebar({
   onToggleCollapse,
   isMobileOpen,
   onCloseMobile,
+  onOpenSearch,
 }: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
@@ -126,12 +128,16 @@ export function Sidebar({
         {!isCollapsed ? (
           <button
             onClick={() => {
-              router.push("/gccs");
+              if (onOpenSearch) {
+                onOpenSearch();
+              } else {
+                router.push("/gccs");
+              }
               onCloseMobile();
             }}
-            className="w-full flex items-center justify-between px-3 py-2 rounded-lg border border-border-neutral bg-surface-subtle/80 text-xs text-ink-muted hover:text-ink hover:border-border-strong hover:bg-white transition-all shadow-2xs group"
-            title="Quick search GCCs (⌘K or Ctrl+K)"
-            aria-label="Quick search GCCs"
+            className="w-full flex items-center justify-between px-3 py-2 rounded-lg border border-border-neutral bg-surface-subtle/80 text-xs text-ink-muted hover:text-ink hover:border-border-strong hover:bg-white transition-all shadow-2xs group cursor-pointer"
+            title="Quick search GCCs, corridors & intelligence (⌘K or Ctrl+K)"
+            aria-label="Quick search GCCs, corridors & intelligence"
           >
             <div className="flex items-center gap-2.5 min-w-0">
               <Search className="w-4 h-4 text-ink-muted group-hover:text-brand flex-shrink-0 transition-colors" />
@@ -143,9 +149,15 @@ export function Sidebar({
           </button>
         ) : (
           <button
-            onClick={() => router.push("/gccs")}
-            className="w-full flex items-center justify-center p-2 rounded-lg text-ink-muted hover:text-ink hover:bg-surface-subtle transition-colors"
-            title="Quick search GCCs (⌘K)"
+            onClick={() => {
+              if (onOpenSearch) {
+                onOpenSearch();
+              } else {
+                router.push("/gccs");
+              }
+            }}
+            className="w-full flex items-center justify-center p-2 rounded-lg text-ink-muted hover:text-ink hover:bg-surface-subtle transition-colors cursor-pointer"
+            title="Quick search GCCs (⌘K or Ctrl+K)"
             aria-label="Quick search GCCs"
           >
             <Search className="w-5 h-5" />
