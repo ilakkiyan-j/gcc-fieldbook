@@ -6,7 +6,7 @@
 > **Version:** 0.1 — assessment MVP  
 > **Last updated:** 13 October 2026  
 > **Status:** Proposed baseline; confirm against implementation checkpoints  
-> **Companion documents:** [`RESEARCH.md`](./RESEARCH.md), [`PRD.md`](./PRD.md)
+> **Companion documents:** [`data-trust.md`](./data-trust.md), [`data-dictionary.md`](./data-dictionary.md), [`decisions.md`](./decisions.md)
 
 ---
 
