@@ -137,6 +137,15 @@ const SEARCH_DATABASE: SearchItem[] = [
   },
 ];
 
+const CATEGORY_CONFIG: Record<
+  SearchItem["category"],
+  { label: string; order: number }
+> = {
+  Centres: { label: "GCC Centres & Enterprises", order: 1 },
+  Locations: { label: "Metro Corridors & Locations", order: 2 },
+  Tools: { label: "Workspaces & Platform Tools", order: 3 },
+};
+
 export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -158,32 +167,75 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
     });
   }, [query]);
 
+  // Group filtered items while preserving their global index for keyboard navigation
+  const groupedResults = useMemo(() => {
+    const groups: {
+      category: SearchItem["category"];
+      label: string;
+      order: number;
+      items: { item: SearchItem; globalIndex: number }[];
+    }[] = [
+      {
+        category: "Centres",
+        label: CATEGORY_CONFIG.Centres.label,
+        order: CATEGORY_CONFIG.Centres.order,
+        items: [],
+      },
+      {
+        category: "Locations",
+        label: CATEGORY_CONFIG.Locations.label,
+        order: CATEGORY_CONFIG.Locations.order,
+        items: [],
+      },
+      {
+        category: "Tools",
+        label: CATEGORY_CONFIG.Tools.label,
+        order: CATEGORY_CONFIG.Tools.order,
+        items: [],
+      },
+    ];
+
+    filteredItems.forEach((item, globalIndex) => {
+      const group = groups.find((g) => g.category === item.category);
+      if (group) {
+        group.items.push({ item, globalIndex });
+      }
+    });
+
+    return groups
+      .filter((g) => g.items.length > 0)
+      .sort((a, b) => a.order - b.order);
+  }, [filteredItems]);
+
   // Reset index when query changes
   useEffect(() => {
     setSelectedIndex(0);
   }, [query]);
 
-  // Focus input on open & prevent body scrolling
+  // Focus input on open & prevent background body scrolling
   useEffect(() => {
     if (isOpen) {
       setQuery("");
       setSelectedIndex(0);
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         inputRef.current?.focus();
       }, 50);
       document.body.style.overflow = "hidden";
+      return () => {
+        clearTimeout(timer);
+        document.body.style.overflow = "";
+      };
     } else {
       document.body.style.overflow = "";
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
   }, [isOpen]);
 
-  // Scroll selected item into view
+  // Scroll selected item smoothly into view
   useEffect(() => {
     if (!listRef.current) return;
-    const selectedEl = listRef.current.querySelector<HTMLElement>(`[data-index="${selectedIndex}"]`);
+    const selectedEl = listRef.current.querySelector<HTMLElement>(
+      `[data-index="${selectedIndex}"]`
+    );
     if (selectedEl) {
       selectedEl.scrollIntoView({ block: "nearest" });
     }
@@ -193,10 +245,14 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      setSelectedIndex((prev) => (prev < filteredItems.length - 1 ? prev + 1 : 0));
+      setSelectedIndex((prev) =>
+        prev < filteredItems.length - 1 ? prev + 1 : 0
+      );
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
-      setSelectedIndex((prev) => (prev > 0 ? prev - 1 : filteredItems.length - 1));
+      setSelectedIndex((prev) =>
+        prev > 0 ? prev - 1 : filteredItems.length - 1
+      );
     } else if (e.key === "Enter") {
       e.preventDefault();
       const selected = filteredItems[selectedIndex];
@@ -214,125 +270,148 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
 
   return (
     <div
-      className="fixed inset-0 z-[120] flex items-start justify-center pt-16 sm:pt-24 px-4 bg-ink/50 backdrop-blur-xs animate-fadeIn"
+      className="fixed inset-0 z-[120] flex items-start justify-center pt-12 sm:pt-16 pb-12 px-4 bg-ink/50 backdrop-blur-xs animate-fadeIn"
       onClick={onClose}
     >
       <div
-        className="w-full max-w-2xl bg-white rounded-xl border border-border-neutral shadow-2xl overflow-hidden flex flex-col max-h-[80vh] sm:max-h-[600px] animate-scaleUp"
+        className="w-full max-w-2xl bg-white rounded-xl border border-border-neutral shadow-2xl overflow-hidden flex flex-col max-h-[min(580px,calc(100vh-100px))] animate-scaleUp"
         onClick={(e) => e.stopPropagation()}
         onKeyDown={handleKeyDown}
       >
-        {/* Search Input Bar */}
-        <div className="flex items-center px-4 py-3.5 border-b border-border-neutral/70 bg-surface-subtle/30">
-          <Search className="w-5 h-5 text-ink-muted mr-3 shrink-0" />
+        {/* Seamless Search Input Bar */}
+        <div className="flex items-center gap-3 px-4 py-3.5 border-b border-border-neutral/80 bg-surface-subtle/30 shrink-0">
+          <Search className="w-5 h-5 text-ink-muted shrink-0" />
           <input
             ref={inputRef}
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search companies, locations, capabilities, or tools..."
-            className="flex-1 bg-transparent text-sm sm:text-base text-ink placeholder:text-ink-muted focus:outline-hidden"
+            className="flex-1 min-w-0 bg-transparent text-sm sm:text-base text-ink placeholder:text-ink-muted border-0 border-none outline-none focus:outline-none focus:ring-0 ring-0 shadow-none p-0"
           />
           {query ? (
             <button
               onClick={() => setQuery("")}
-              className="p-1 rounded-md text-ink-muted hover:text-ink hover:bg-surface-subtle"
+              className="p-1 rounded-md text-ink-muted hover:text-ink hover:bg-surface-subtle transition-colors shrink-0 cursor-pointer"
               aria-label="Clear query"
             >
               <X className="w-4 h-4" />
             </button>
           ) : (
-            <kbd className="hidden sm:inline-flex items-center px-2 py-0.5 text-[10px] font-mono font-medium text-ink-muted bg-white border border-border-neutral rounded shadow-2xs">
+            <kbd className="hidden sm:inline-flex items-center px-2 py-0.5 text-[10px] font-mono font-medium text-ink-muted bg-white border border-border-neutral rounded shadow-2xs shrink-0 select-none">
               ESC
             </kbd>
           )}
         </div>
 
-        {/* Results List */}
-        <div ref={listRef} className="flex-1 overflow-y-auto p-2 space-y-1">
+        {/* Results List Area */}
+        <div
+          ref={listRef}
+          className="flex-1 min-h-0 overflow-y-auto px-2 py-2 space-y-3 scroll-py-2"
+        >
           {filteredItems.length === 0 ? (
             <div className="py-12 text-center text-sm text-ink-muted">
-              <Building2 className="w-8 h-8 mx-auto text-ink-muted/50 mb-2" />
-              <p>No results found matching &ldquo;<span className="font-semibold text-ink">{query}</span>&rdquo;</p>
-              <p className="text-xs text-ink-muted mt-1">Try searching for Goldman, Boeing, ORR, Rent, or Copilot</p>
+              <Building2 className="w-8 h-8 mx-auto text-ink-muted/40 mb-2" />
+              <p>
+                No results found matching &ldquo;
+                <span className="font-semibold text-ink">{query}</span>&rdquo;
+              </p>
+              <p className="text-xs text-ink-muted mt-1">
+                Try searching for Goldman, Boeing, ORR, Rent, or Copilot
+              </p>
             </div>
           ) : (
-            filteredItems.map((item, index) => {
-              const isSelected = index === selectedIndex;
-              const Icon = item.icon;
-
-              return (
-                <div
-                  key={item.id}
-                  data-index={index}
-                  onClick={() => {
-                    onClose();
-                    router.push(item.href);
-                  }}
-                  onMouseEnter={() => setSelectedIndex(index)}
-                  className={cn(
-                    "flex items-center justify-between p-3 rounded-lg text-left cursor-pointer transition-colors border border-transparent",
-                    isSelected
-                      ? "bg-brand-soft text-brand-ink border-brand/20 shadow-2xs"
-                      : "hover:bg-surface-subtle/60 text-ink"
-                  )}
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <div
-                      className={cn(
-                        "w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors",
-                        isSelected ? "bg-brand text-white" : "bg-surface-subtle text-ink-secondary"
-                      )}
-                    >
-                      <Icon className="w-4 h-4" />
-                    </div>
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-2">
-                        <span className="font-semibold text-xs sm:text-sm truncate">
-                          {item.title}
-                        </span>
-                        <span
-                          className={cn(
-                            "text-[10px] uppercase font-bold px-1.5 py-0.2 rounded shrink-0",
-                            isSelected
-                              ? "bg-brand text-white"
-                              : "bg-surface-subtle text-ink-muted border border-border-neutral/60"
-                          )}
-                        >
-                          {item.category}
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-ink-secondary truncate mt-0.5">
-                        {item.subtitle}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-1.5 pl-3 shrink-0">
-                    {isSelected && (
-                      <CornerDownLeft className="w-3.5 h-3.5 text-brand hidden sm:block animate-pulse" />
-                    )}
-                    <ArrowRight className="w-4 h-4 text-ink-muted/60" />
-                  </div>
+            groupedResults.map((group) => (
+              <div key={group.category} className="space-y-1">
+                {/* Category Section Header */}
+                <div className="text-[10.5px] font-bold tracking-wider uppercase text-ink-muted px-2.5 pt-1.5 pb-1 select-none">
+                  {group.label}
                 </div>
-              );
-            })
+
+                {/* Group Items */}
+                <div className="space-y-1">
+                  {group.items.map(({ item, globalIndex }) => {
+                    const isSelected = globalIndex === selectedIndex;
+                    const Icon = item.icon;
+
+                    return (
+                      <div
+                        key={item.id}
+                        data-index={globalIndex}
+                        onClick={() => {
+                          onClose();
+                          router.push(item.href);
+                        }}
+                        onMouseEnter={() => setSelectedIndex(globalIndex)}
+                        className={cn(
+                          "flex items-center justify-between p-2 sm:p-2.5 rounded-lg text-left cursor-pointer transition-all border",
+                          isSelected
+                            ? "bg-brand-soft text-brand-ink border-brand/25 shadow-2xs"
+                            : "hover:bg-surface-subtle/70 text-ink border-transparent"
+                        )}
+                      >
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div
+                            className={cn(
+                              "w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors",
+                              isSelected
+                                ? "bg-brand text-white"
+                                : "bg-surface-subtle text-ink-secondary"
+                            )}
+                          >
+                            <Icon className="w-4 h-4" />
+                          </div>
+                          <div className="min-w-0">
+                            <span className="font-semibold text-xs sm:text-sm text-ink block truncate">
+                              {item.title}
+                            </span>
+                            <p className="text-[11px] text-ink-muted truncate mt-0.5">
+                              {item.subtitle}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Unified Action Indicator */}
+                        <div className="flex items-center gap-1.5 pl-3 shrink-0">
+                          {isSelected ? (
+                            <span className="text-[11px] font-semibold text-brand bg-brand-soft/80 border border-brand/20 px-2 py-0.5 rounded-md flex items-center gap-1 select-none">
+                              <CornerDownLeft className="w-3 h-3" />
+                              <span className="hidden sm:inline">Open</span>
+                            </span>
+                          ) : (
+                            <ArrowRight className="w-4 h-4 text-ink-muted/40" />
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))
           )}
+          {/* Subtle bottom padding buffer */}
+          <div className="h-1" />
         </div>
 
         {/* Footer Shortcut Bar */}
-        <div className="px-4 py-2.5 border-t border-border-neutral/60 bg-surface-subtle/40 text-[11px] text-ink-muted flex items-center justify-between">
+        <div className="px-4 py-2.5 border-t border-border-neutral/70 bg-surface-subtle/50 text-[11px] text-ink-muted flex items-center justify-between shrink-0 select-none">
           <div className="flex items-center gap-3">
             <span className="inline-flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 font-mono text-[10px] bg-white border border-border-neutral rounded">↑↓</kbd>
+              <kbd className="px-1.5 py-0.5 font-mono text-[10px] bg-white border border-border-neutral rounded shadow-2xs">
+                ↑↓
+              </kbd>
               <span>to navigate</span>
             </span>
             <span className="inline-flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 font-mono text-[10px] bg-white border border-border-neutral rounded">↵</kbd>
+              <kbd className="px-1.5 py-0.5 font-mono text-[10px] bg-white border border-border-neutral rounded shadow-2xs">
+                ↵
+              </kbd>
               <span>to open</span>
             </span>
             <span className="inline-flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 font-mono text-[10px] bg-white border border-border-neutral rounded">esc</kbd>
+              <kbd className="px-1.5 py-0.5 font-mono text-[10px] bg-white border border-border-neutral rounded shadow-2xs">
+                esc
+              </kbd>
               <span>to close</span>
             </span>
           </div>
