@@ -8,6 +8,7 @@ import { CitySelector } from "@/components/locations/CitySelector";
 import { IndicatorMatrixTable } from "@/components/locations/IndicatorMatrixTable";
 import { PolicyComparisonCards } from "@/components/locations/PolicyComparisonCards";
 import { ComparabilityDisclosure } from "@/components/locations/ComparabilityDisclosure";
+import { HelpTooltip } from "@/components/shared/HelpTooltip";
 
 interface IndicatorRow {
   key: string;
@@ -69,9 +70,14 @@ export function LocationsClient({ allCities, comparison }: LocationsClientProps)
           <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-brand-soft text-brand-ink border border-brand/20 mb-2">
             <MapPin className="w-3.5 h-3.5 text-brand" />
             <span>Site Selection Intelligence &bull; Metro Corridors</span>
+            <HelpTooltip
+              content="Micro-market intelligence comparing prime tech corridors (e.g. Outer Ring Road vs. HITEC City) with defined measurement units and observation periods."
+              side="bottom"
+            />
           </div>
-          <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-ink">
-            India GCC Metro Hub Comparison Matrix
+          <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-ink flex items-center flex-wrap">
+            <span>India GCC Metro Hub Comparison Matrix</span>
+            <HelpTooltip content="Side-by-side benchmarking of commercial office tariffs, tech talent headcount, and enacted state policy subsidies across Indian metro hubs." />
           </h1>
           <p className="text-xs sm:text-sm text-ink-secondary mt-1.5 max-w-3xl leading-relaxed">
             Side-by-side benchmark of prime Grade-A commercial leasing tariffs, tech talent concentration, and state GCC policy subsidies. Sourced directly from JLL quarterly reports, NASSCOM surveys, and state gazettes.

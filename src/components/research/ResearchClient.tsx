@@ -6,6 +6,7 @@ import { Sparkles, ShieldCheck, CheckCircle2, FileText, ArrowRight, Info } from 
 import { EvidenceClaim } from "@/types/domain";
 import { ResearchChat } from "@/components/research/ResearchChat";
 import { RetrievedEvidenceDrawer } from "@/components/research/RetrievedEvidenceDrawer";
+import { HelpTooltip } from "@/components/shared/HelpTooltip";
 
 export function ResearchClient() {
   const [activeCitations, setActiveCitations] = useState<EvidenceClaim[]>([]);
@@ -39,8 +40,9 @@ export function ResearchClient() {
             </span>
           </div>
 
-          <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-ink">
-            Evidence-Bound AI Research Copilot
+          <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-ink flex items-center flex-wrap">
+            <span>Evidence-Bound AI Research Copilot</span>
+            <HelpTooltip content="Ask research questions strictly grounded in primary corporate filings and gazettes. Every factual assertion is tagged with auditable citation codes." />
           </h1>
           <p className="text-xs sm:text-sm text-ink-secondary mt-1.5 max-w-3xl leading-relaxed">
             Interrogate verified corporate filings, facility scales, real estate tariffs, and state policy gazettes. Every statement is strictly cross-referenced against primary citations.

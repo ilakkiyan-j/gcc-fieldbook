@@ -36,14 +36,19 @@ export function ResearchChat({
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
+  // Container-scoped auto-scroll: only scrolls the internal message container
+  // when user interacts, avoiding scrolling the window on initial page load
   useEffect(() => {
-    scrollToBottom();
+    if (messages.length > 1 || isLoading) {
+      if (messagesContainerRef.current) {
+        messagesContainerRef.current.scrollTo({
+          top: messagesContainerRef.current.scrollHeight,
+          behavior: "smooth",
+        });
+      }
+    }
   }, [messages, isLoading]);
 
   const handleSubmit = async (queryText: string) => {
@@ -98,18 +103,19 @@ export function ResearchChat({
     }
   };
 
-  // Helper to render text with interactive citation badges
-  const renderMessageContent = (content: string) => {
-    // Split on citation tags [CLM-...]
-    const parts = content.split(/(\[CLM-[A-Za-z0-9_-]+\])/g);
+  // Helper to render inline spans: citations, bold, code
+  const renderInlineSegment = (text: string) => {
+    const parts = text.split(/(\[CLM-[A-Za-z0-9_-]+\]|`[^`]+`|\*\*[^*]+\*\*)/g);
 
     return parts.map((part, idx) => {
-      const match = part.match(/^\[(CLM-[A-Za-z0-9_-]+)\]$/);
-      if (match) {
-        const code = match[1];
+      // Citation button [CLM-...]
+      const clmMatch = part.match(/^\[?(CLM-[A-Za-z0-9_-]+)\]?$/);
+      if (clmMatch) {
+        const code = clmMatch[1];
         return (
           <button
             key={idx}
+            type="button"
             onClick={() => onCitationClicked(code)}
             className="inline-flex items-center px-1.5 py-0.5 mx-0.5 rounded text-[11px] font-mono font-bold bg-brand-soft text-brand-ink border border-brand/30 hover:bg-brand hover:text-white transition-colors cursor-pointer"
             title={`Inspect citation ${code}`}
@@ -118,14 +124,98 @@ export function ResearchChat({
           </button>
         );
       }
+
+      // Inline code `...`
+      if (part.startsWith("`") && part.endsWith("`") && part.length >= 2) {
+        const inner = part.slice(1, -1);
+        const innerClm = inner.match(/^\[?(CLM-[A-Za-z0-9_-]+)\]?$/);
+        if (innerClm) {
+          const code = innerClm[1];
+          return (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => onCitationClicked(code)}
+              className="inline-flex items-center px-1.5 py-0.5 mx-0.5 rounded text-[11px] font-mono font-bold bg-brand-soft text-brand-ink border border-brand/30 hover:bg-brand hover:text-white transition-colors cursor-pointer"
+              title={`Inspect citation ${code}`}
+            >
+              [{code}]
+            </button>
+          );
+        }
+        return (
+          <code
+            key={idx}
+            className="px-1.5 py-0.5 mx-0.5 rounded font-mono text-[11px] bg-white text-brand border border-border-neutral/70 font-semibold"
+          >
+            {inner}
+          </code>
+        );
+      }
+
+      // Bold text **...**
+      if (part.startsWith("**") && part.endsWith("**") && part.length >= 4) {
+        return (
+          <strong key={idx} className="font-semibold text-ink">
+            {part.slice(2, -2)}
+          </strong>
+        );
+      }
+
       return <span key={idx}>{part}</span>;
+    });
+  };
+
+  // Helper to render message content with rich formatting, bullets, bold, and interactive citations
+  const renderMessageContent = (content: string) => {
+    const lines = content.split("\n");
+    return lines.map((line, idx) => {
+      // Empty line
+      if (!line.trim()) {
+        return <div key={idx} className="h-2" />;
+      }
+
+      // Bullet item
+      if (line.trim().startsWith("- ") || line.trim().startsWith("• ")) {
+        const text = line.trim().replace(/^[-•]\s*/, "");
+        return (
+          <div key={idx} className="flex items-start gap-2 py-0.5 ml-1">
+            <span className="text-brand font-bold mt-1 text-[10px] leading-none">&bull;</span>
+            <div className="flex-1 leading-relaxed text-xs sm:text-sm text-ink">
+              {renderInlineSegment(text)}
+            </div>
+          </div>
+        );
+      }
+
+      // Numbered item
+      const numMatch = line.trim().match(/^(\d+)\.\s*(.*)$/);
+      if (numMatch) {
+        return (
+          <div key={idx} className="flex items-start gap-2 py-0.5 ml-1">
+            <span className="font-mono font-bold text-brand text-xs min-w-[18px]">
+              {numMatch[1]}.
+            </span>
+            <div className="flex-1 leading-relaxed text-xs sm:text-sm text-ink">
+              {renderInlineSegment(numMatch[2])}
+            </div>
+          </div>
+        );
+      }
+
+      // Regular paragraph
+      return (
+        <p key={idx} className="text-xs sm:text-sm text-ink leading-relaxed my-1">
+          {renderInlineSegment(line)}
+        </p>
+      );
     });
   };
 
   return (
     <div className="rounded-xl border border-border-neutral bg-white p-5 shadow-2xs flex flex-col h-[650px] justify-between">
       {/* Messages Stream */}
-      <div className="flex-1 overflow-y-auto space-y-4 pr-2">
+      <div ref={messagesContainerRef} className="flex-1 overflow-y-auto space-y-4 pr-2">
         {messages.map((msg) => {
           const isUser = msg.role === "user";
 
@@ -151,8 +241,8 @@ export function ResearchChat({
                     : "bg-surface-subtle/80 text-ink border border-border-neutral/70 shadow-2xs"
                 }`}
               >
-                <div className="whitespace-pre-wrap">
-                  {isUser ? msg.content : renderMessageContent(msg.content)}
+                <div>
+                  {isUser ? <p className="whitespace-pre-wrap">{msg.content}</p> : renderMessageContent(msg.content)}
                 </div>
 
                 {!isUser && (msg.model || msg.citations) && (
@@ -191,8 +281,6 @@ export function ResearchChat({
             <span>Synthesis error: {error}</span>
           </div>
         )}
-
-        <div ref={messagesEndRef} />
       </div>
 
       {/* Footer Area: Prompts + Input */}

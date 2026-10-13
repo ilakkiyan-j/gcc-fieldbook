@@ -8,6 +8,7 @@ import { GccSearchBar } from "@/components/explorer/GccSearchBar";
 import { GccFilterBar } from "@/components/explorer/GccFilterBar";
 import { GccTable } from "@/components/explorer/GccTable";
 import { GccEmptyState } from "@/components/explorer/GccEmptyState";
+import { HelpTooltip } from "@/components/shared/HelpTooltip";
 
 interface GccExplorerClientProps {
   centres: GccCentre[];
@@ -140,8 +141,9 @@ export function GccExplorerClient({ centres }: GccExplorerClientProps) {
             <Building2 className="w-3.5 h-3.5 text-brand" />
             <span>Curated Directory &bull; Sourced Filings</span>
           </div>
-          <h1 className="font-heading text-2xl sm:text-3xl font-extrabold tracking-tight text-ink">
-            GCC Explorer & Directory
+          <h1 className="font-heading text-2xl sm:text-3xl font-extrabold tracking-tight text-ink flex items-center flex-wrap">
+            <span>GCC Explorer & Directory</span>
+            <HelpTooltip content="Search, filter, and audit verified Global Capability Centres by functional domain, metro hub, setup year, and source claim verification status." />
           </h1>
           <p className="text-xs sm:text-sm text-ink-secondary mt-1 max-w-3xl leading-relaxed">
             Discover verified Global Capability Centres across Tier-1 corridors. Filter by functional capability, industry sector, or evidence audit status.

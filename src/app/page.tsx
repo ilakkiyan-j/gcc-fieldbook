@@ -7,6 +7,7 @@ import { OverviewMetrics } from "@/components/dashboard/OverviewMetrics";
 import { ConfidenceBar } from "@/components/dashboard/ConfidenceBar";
 import { FeaturedGccGrid } from "@/components/dashboard/FeaturedGccGrid";
 import { QuickActionLaunchpads } from "@/components/dashboard/QuickActionLaunchpads";
+import { HelpTooltip } from "@/components/shared/HelpTooltip";
 
 export const metadata = {
   title: "Dashboard Overview — GCC Fieldbook",
@@ -31,8 +32,9 @@ export default async function HomePage() {
             <Sparkles className="w-3.5 h-3.5 text-brand" />
             <span>Executive Workspace &bull; India Ecosystem</span>
           </div>
-          <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-ink">
-            India GCC Intelligence Command Center
+          <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-ink flex items-center flex-wrap">
+            <span>India GCC Intelligence Command Center</span>
+            <HelpTooltip content="Overview of India's GCC ecosystem metrics, curated sample coverage, and live data confidence distribution across Tier-1 and Tier-2 corridors." />
           </h1>
           <p className="text-xs sm:text-sm text-ink-secondary mt-1.5 max-w-3xl leading-relaxed">
             Evidence-first intelligence workspace benchmarking Global Capability Centres across Tier-1 and Tier-2 corridors. Sourced directly from verifiable corporate filings, real estate benchmarks, and state policy gazettes.

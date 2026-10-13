@@ -7,6 +7,7 @@ import { generateDecisionBrief, BriefConfig, GeneratedBrief } from "@/lib/brief/
 import { BriefConfigPanel } from "@/components/brief/BriefConfigPanel";
 import { BriefExportToolbar } from "@/components/brief/BriefExportToolbar";
 import { BriefDocumentPreview } from "@/components/brief/BriefDocumentPreview";
+import { HelpTooltip } from "@/components/shared/HelpTooltip";
 
 interface BriefClientProps {
   initialCentres: GccCentre[];
@@ -43,9 +44,12 @@ export function BriefClient({ initialCentres, policies }: BriefClientProps) {
             <FileText className="w-3.5 h-3.5 text-brand" />
             <span>Executive Diligence Deliverable &bull; Export Ready</span>
           </div>
-          <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-ink">
-            Executive GCC Decision Brief Generator
-          </h1>
+          <div className="flex items-center gap-2">
+            <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-ink">
+              Executive GCC Decision Brief Generator
+            </h1>
+            <HelpTooltip content="Configurable executive memo generator. Tailor objectives, target metro hubs, and technical capabilities to produce an audit-ready strategic deliverable with citations and risk-mitigation tables." />
+          </div>
           <p className="text-xs sm:text-sm text-ink-secondary mt-1.5 max-w-3xl leading-relaxed">
             Synthesize strategic objectives, corridor selections, and primary citations into an audit-ready executive intelligence memo. Export to Markdown, copy to clipboard, or print to PDF.
           </p>
@@ -55,22 +59,19 @@ export function BriefClient({ initialCentres, policies }: BriefClientProps) {
       {/* Export Toolbar */}
       <BriefExportToolbar markdown={brief.markdown} title={brief.title} />
 
-      {/* 2-Column Analyst Workspace */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Left: Configuration Controls (hidden when printing) */}
-        <div className="lg:col-span-4 print:hidden">
-          <BriefConfigPanel
-            config={config}
-            onChangeConfig={setConfig}
-            onRegenerate={handleRegenerate}
-            isLoading={isLoading}
-          />
-        </div>
+      {/* Horizontal Configuration Parameters (hidden when printing) */}
+      <div className="print:hidden">
+        <BriefConfigPanel
+          config={config}
+          onChangeConfig={setConfig}
+          onRegenerate={handleRegenerate}
+          isLoading={isLoading}
+        />
+      </div>
 
-        {/* Right: Rendered Document Canvas */}
-        <div className="lg:col-span-8">
-          <BriefDocumentPreview brief={brief} />
-        </div>
+      {/* Full-Width Rendered Document Canvas */}
+      <div className="w-full">
+        <BriefDocumentPreview brief={brief} />
       </div>
     </div>
   );

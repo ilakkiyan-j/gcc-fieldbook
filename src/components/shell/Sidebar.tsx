@@ -77,8 +77,8 @@ export function Sidebar({
       {/* Brand Header */}
       <div
         className={cn(
-          "flex items-center justify-center h-20 px-4 border-b border-border-neutral transition-all relative",
-          isCollapsed ? "px-2" : "px-4"
+          "flex items-center justify-center h-[88px] px-3 border-b border-border-neutral transition-all relative",
+          isCollapsed ? "px-2" : "px-3"
         )}
       >
         <Link
@@ -87,25 +87,25 @@ export function Sidebar({
           className="flex items-center justify-center w-full transition-opacity hover:opacity-90"
         >
           {isCollapsed ? (
-            <div className="w-10 h-10 relative flex items-center justify-center">
+            <div className="w-11 h-11 relative flex items-center justify-center">
               <Image
                 src="/images/logo.png"
                 alt="GCC Fieldbook"
-                width={40}
-                height={40}
+                width={44}
+                height={44}
                 priority
                 className="rounded-lg shadow-2xs object-contain"
               />
             </div>
           ) : (
-            <div className="h-12 relative flex items-center justify-center">
+            <div className="w-full flex items-center justify-center px-1">
               <Image
                 src="/images/horizontal_logo.png"
                 alt="GCC Fieldbook — Evidence. Context. Better decisions."
-                width={195}
-                height={48}
+                width={220}
+                height={94}
                 priority
-                className="h-11 w-auto max-w-[200px] object-contain"
+                className="w-[215px] max-w-[220px] h-auto object-contain"
               />
             </div>
           )}
